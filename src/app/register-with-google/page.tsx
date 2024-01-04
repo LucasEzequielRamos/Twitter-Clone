@@ -3,7 +3,9 @@ import FormPasswordForGoogle from '@/app/components/form-password-for-google'
 
 const page = () => {
   return (
-    <FormPasswordForGoogle/>
+    <div >
+      <FormPasswordForGoogle/>
+    </div>
   )
 }
 

@@ -14,6 +14,12 @@ interface User {
 }
 
 export const authOptions: any = {
+  session: {
+    strategy: 'jwt'
+  },
+  pages: {
+    signIn: '/auth/login'
+  },
   providers: [
     CredentialsProvider({
       id: 'credentials',

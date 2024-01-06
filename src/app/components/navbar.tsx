@@ -11,8 +11,8 @@ const Navbar = () => {
       <div><h3>TWITTER CLONE</h3></div>
       {!session
         ? <div className='flex gap-3'>
-          <Link href={'/login'}>Login</Link>
-          <Link href={'/register'}>Register</Link>
+          <Link href={'/auth/login'}>Login</Link>
+          <Link href={'/auth/register'}>Register</Link>
         </div>
         : <div>
           <button onClick={async () => { await signOut() }}>Sign out</button>

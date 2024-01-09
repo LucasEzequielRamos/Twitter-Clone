@@ -1,6 +1,9 @@
-const page = () => {
+import { getServerSession } from 'next-auth'
+
+const page = async () => {
+  const session = await getServerSession()
   return (
-    <div>page</div>
+    <div>{session?.user?.name }</div>
   )
 }
 

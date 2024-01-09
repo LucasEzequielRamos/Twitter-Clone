@@ -1,7 +1,6 @@
 import NextAuth from 'next-auth/next'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { pool } from '@/../utils/db'
-import { type RowDataPacket } from 'mysql2/promise'
+import db from '@/../utils/db'
 import bcrypt from 'bcryptjs'
 
 interface User {
@@ -24,21 +23,24 @@ export const authOptions: any = {
       },
       async authorize (credentials: any): Promise<User | any> {
         try {
-          const [rows] = await pool.query<RowDataPacket[]>('select * from users where email_address = ?', [credentials.email_address])
-
-          if (rows.length > 0) {
-            const user = rows[0]
-            const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password)
-            console.log(user)
-            if (isPasswordCorrect) {
-              return user
+          const userFound = await db.users.findUnique({
+            where: {
+              email_address: credentials.email_address
             }
-          } else {
-            return null
+          })
+          console.log(userFound)
+          if (!userFound) throw new Error('User not found')
+
+          const validPass = await bcrypt.compare(credentials.password, userFound.password)
+          if (!validPass) throw new Error('Email or password invalid')
+          return {
+            id: userFound.id,
+            name: userFound.user_nick,
+            email: userFound.email_address
           }
         } catch (error: any) {
           console.error('error in query', error)
-          throw new Error('error in server')
+          throw new Error(error.message)
         }
       }
     })

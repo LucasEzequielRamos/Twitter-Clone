@@ -1,11 +1,15 @@
-import { createPool } from 'mysql2/promise'
+import { PrismaClient } from '@prisma/client'
 
-const pool = createPool({
-  host: 'localhost',
-  user: 'root',
-  password: 'Lucasbecerra.1',
-  port: 3306,
-  database: 'twitter_db'
-})
+const prismaClientSingleton = () => {
+  return new PrismaClient()
+}
 
-export { pool }
+declare global {
+  const prisma: undefined | ReturnType<typeof prismaClientSingleton>
+}
+
+const prisma = globalThis.prisma ?? prismaClientSingleton()
+
+export default prisma
+
+if (process.env.NODE_ENV !== 'production') globalThis.prisma = prisma

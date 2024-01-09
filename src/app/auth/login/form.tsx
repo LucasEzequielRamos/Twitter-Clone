@@ -1,13 +1,11 @@
 'use client'
 
-// import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 const Form = () => {
-  const router = useRouter()
-
+  const [error, setError] = useState<string | null | undefined>(null)
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -18,11 +16,8 @@ const Form = () => {
       redirect: false
     })
     console.log({ res })
-    if (res?.status === 200) {
-      router.refresh()
-      router.push('/')
-    } else {
-      console.log('Invalid email or password')
+    if (res?.status !== 200) {
+      setError(res?.error)
     }
   }
 
@@ -34,7 +29,7 @@ const Form = () => {
           <input type="text" placeholder="email_address" name="email_address" />
           <input type="password" placeholder="password" name="password" />
           <button className='text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center justify-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2 w-1/3'>Login  </button>
-          {/* {error && <p className='text-base text-red-700'>{error}</p>} */}
+          {error && <p className='text-base text-red-700'>{error}</p>}
         </form>
         <p className='text-xl'>- OR -</p>
         <Link className='text-blue-600' href={'/auth/register'}>Register here</Link>

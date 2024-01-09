@@ -8,7 +8,7 @@ const RegisterPage = () => {
   const session = useSession()
 
   if (session.status !== 'unauthenticated') {
-    redirect('/auth/login')
+    redirect('/dashboard')
   }
   return (
     <Form/>

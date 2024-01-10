@@ -7,6 +7,8 @@ import { redirect } from 'next/navigation'
 const RegisterPage = () => {
   const session = useSession()
 
+  console.log({ session })
+
   if (session.status !== 'unauthenticated') {
     redirect('/dashboard')
   }

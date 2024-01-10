@@ -28,7 +28,6 @@ export const authOptions: any = {
               email_address: credentials.email_address
             }
           })
-          console.log(userFound)
           if (!userFound) throw new Error('User not found')
 
           const validPass = await bcrypt.compare(credentials.password, userFound.password)

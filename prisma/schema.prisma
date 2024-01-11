@@ -19,6 +19,7 @@ model Users {
   phonenumber String @db.Char(15)
   created_at DateTime  @default(now()) @db.Timestamp(0)
   password String @db.VarChar(255)
+  profile_image String @db.VarChar(255)
   followers Followers[] @relation("followers_user")
   following Followers[] @relation("following_user")
   tweets Tweets[]

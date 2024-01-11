@@ -6,7 +6,6 @@ import React from 'react'
 
 const Navbar = () => {
   const { data: session } = useSession()
-  // console.log(session)
   return (
     <nav className='flex justify-between px-5 py-5'>
       <div><h3>TWITTER CLONE</h3></div>

@@ -15,7 +15,6 @@ const Form = () => {
       password: formData.get('password'),
       redirect: false
     })
-    console.log({ res })
     if (res?.status !== 200) {
       setError(res?.error)
     }

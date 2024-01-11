@@ -26,6 +26,7 @@
       "@typescript-eslint/strict-boolean-expressions": "off",
       "indent": ["error", 2],
       "@typescript-eslint/naming-convention":"off",
-      "@typescript-eslint/no-unsafe-argument":"off"
+      "@typescript-eslint/no-unsafe-argument":"off",
+      "react/prop-types": "off"
   }
 }

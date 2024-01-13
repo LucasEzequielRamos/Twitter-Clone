@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const useGetUserInfo = () => {
+const useGetUserInfo = ({ uploadImage }: { uploadImage: boolean }) => {
   const [user, setUser] = useState(null)
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -12,7 +12,7 @@ const useGetUserInfo = () => {
     }
 
     fetchUserInfo()
-  }, [])
+  }, [uploadImage])
   return { user }
 }
 

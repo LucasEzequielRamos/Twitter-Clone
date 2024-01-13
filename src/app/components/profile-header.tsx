@@ -3,13 +3,11 @@
 import useGetUserInfo from '@/hooks/useGetUserInfo'
 import { IconArrowNarrowLeft, IconUser } from '@tabler/icons-react'
 import { revalidatePath } from 'next/cache'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 const ProfileHeader = () => {
-  const { user }: { user: any } = useGetUserInfo()
   const [uploadImage, setUploadImage] = useState(false)
-  const router = useRouter()
+  const { user }: { user: any } = useGetUserInfo({ uploadImage })
 
   if (user) {
     const [year, month, day] = user.birthday.split('-')

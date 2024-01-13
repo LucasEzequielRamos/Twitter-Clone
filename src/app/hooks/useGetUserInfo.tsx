@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const useGetUserInfo = ({ uploadImage }: { uploadImage: boolean }) => {
+const useGetUserInfo = ({ uploadImage, tweets }: { uploadImage: boolean, tweets: any }) => {
   const [user, setUser] = useState(null)
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -12,7 +12,7 @@ const useGetUserInfo = ({ uploadImage }: { uploadImage: boolean }) => {
     }
 
     fetchUserInfo()
-  }, [uploadImage])
+  }, [uploadImage, tweets])
   return { user }
 }
 

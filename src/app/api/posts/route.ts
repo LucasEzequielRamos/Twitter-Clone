@@ -7,26 +7,9 @@ export async function GET (req: NextRequest) {
     const session = await getServerSession()
     if (!session) throw new Error('session not found')
 
-    const userFound = await db.users.findUnique({
-      where: {
-        email_address: session?.user?.email
-      }
-    })
-
     const tweets = await db.tweets.findMany({
-      where: {
-        user_id: userFound.id
-      },
-      select: {
-        tweet_id: true,
-        content: true,
-        num_likes: true,
-        user: {
-          select: {
-            user_nick: true,
-            full_name: true
-          }
-        }
+      include: {
+        user: true
       }
 
     })

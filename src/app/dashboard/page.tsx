@@ -20,7 +20,7 @@ const Dashboard = () => {
 
   return (
     <section className='w-[600px] m-auto flex flex-col'>
-      <ProfileHeader />
+      <ProfileHeader tweets={tweets}/>
       <main className='flex justify-center items-center flex-col'>
         <InputTweets handleSubmit={handleSubmit}/>
         <TweetsList tweets={tweets}/>

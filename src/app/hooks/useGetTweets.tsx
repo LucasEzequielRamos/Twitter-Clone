@@ -8,6 +8,7 @@ const useGetTweets = () => {
     if (res.status === 200) {
       const tweets = await res.json()
       setTweets(tweets)
+      console.log(tweets)
     } else return null
   }
   useEffect(() => {

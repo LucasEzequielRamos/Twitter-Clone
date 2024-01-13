@@ -2,12 +2,11 @@
 
 import useGetUserInfo from '@/hooks/useGetUserInfo'
 import { IconArrowNarrowLeft, IconUser } from '@tabler/icons-react'
-import { revalidatePath } from 'next/cache'
 import { useState } from 'react'
 
-const ProfileHeader = () => {
+const ProfileHeader = ({ tweets }: { tweets: any }) => {
   const [uploadImage, setUploadImage] = useState(false)
-  const { user }: { user: any } = useGetUserInfo({ uploadImage })
+  const { user }: { user: any } = useGetUserInfo({ uploadImage, tweets })
 
   if (user) {
     const [year, month, day] = user.birthday.split('-')
@@ -30,7 +29,6 @@ const ProfileHeader = () => {
         if (data) {
           e.target[1].value = ''
           setUploadImage(false)
-          revalidatePath('/api/users')
         } return null
       } return null
     }
@@ -58,8 +56,8 @@ const ProfileHeader = () => {
           </div>
           <div className='flex justify-between px-4 h-[100px]'>
             <picture className=' relative rounded-full bg-gray-700 w-32 h-32 -translate-y-16 object-contain'>
-              <button onClick={() => { setUploadImage(true) }} className=' absolute right-1/2 translate-x-1/2 top-1/2 -translate-y-1/2 w-full'>
-                {user?.avatar_url === null ? <IconUser size={'50px'}/> : <img src={user?.avatar_url} alt={user?.avatar_url} className='rounded-full'/>}</button>
+              <button onClick={() => { setUploadImage(true) }} className=' absolute right-1/2 translate-x-1/2 top-1/2 -translate-y-1/2 w-full '>
+                {user?.avatar_url === null ? <IconUser size={'50px'}/> : <img src={user?.avatar_url} alt={user?.avatar_url} className='rounded-full '/>}</button>
             </picture>
 
             <button className='flex mt-3 rounded-full border-gray-700 border-2 h-fit px-5 py-1'>Edit profile</button>

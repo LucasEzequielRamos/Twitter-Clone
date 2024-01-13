@@ -10,7 +10,6 @@ import ProfileHeader from '@/components/profile-header'
 
 const Dashboard = () => {
   const session = useSession()
-  // console.log({ session })
   if (session.status === 'unauthenticated') {
     redirect('/auth/login')
   }

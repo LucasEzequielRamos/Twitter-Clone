@@ -35,7 +35,6 @@ const Form = () => {
     })
 
     const data = await res.json()
-    console.log(data)
     if (!data.message) {
       router.push('/auth/login')
     }
@@ -48,10 +47,10 @@ const Form = () => {
         <form onSubmit={handleSubmit} className='flex flex-col gap-4 [&>input]:p-1 [&>input]:w-4/5 items-center'>
           <input onChange={handleChange} type="text" placeholder="user_nick" name="user_nick" required />
           <input onChange={handleChange} type="text" placeholder="email_address" name="email_address" required />
-          <input onChange={handleChange} type="text" placeholder="first_name" name="first_name" required/>
-          <input onChange={handleChange} type="text" placeholder="last_name" name="last_name" required />
+          <input onChange={handleChange} type="text" placeholder="full_name" name="full_name" required/>
           <input onChange={handleChange} type="number" placeholder="phonenumber" name="phonenumber" />
           <input onChange={handleChange} type="password" placeholder="password" name="password" required />
+          <input onChange={handleChange} type="date" placeholder="birthday" name="birthday" required />
           <button className='text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center justify-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2 w-1/3'>Register</button>
         </form>
       </div>

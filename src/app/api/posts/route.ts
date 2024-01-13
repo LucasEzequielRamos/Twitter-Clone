@@ -24,7 +24,7 @@ export async function GET (req: NextRequest) {
         user: {
           select: {
             user_nick: true,
-            first_name: true
+            full_name: true
           }
         }
       }

@@ -1,7 +1,14 @@
 import { IconHeart, IconMessageCircle, IconRepeat } from '@tabler/icons-react'
 import React from 'react'
+import ButtonDeleteTweet from './button-delete-tweet'
 
-const TweetCard = ({ user, tweet }: { user: any, tweet: any }) => {
+interface tweet {
+  tweet_id: number
+  num_likes: number
+  content: string
+}
+
+const TweetCard = ({ user, tweet }: { user: any, tweet: tweet }) => {
   return (
     <article className=' border-x-2 border-b-2 w-full border-gray-500'>
       <div className="flex p-3">
@@ -16,7 +23,7 @@ const TweetCard = ({ user, tweet }: { user: any, tweet: any }) => {
               <p className='font-bold'>{user.full_name}</p>
               <p className='text-gray-600'>@{user.user_nick}</p>
             </div>
-            <div>...</div>
+            <ButtonDeleteTweet tweet_id={tweet.tweet_id}/>
           </div>
           <div>{tweet.content}</div>
           <div className='flex w-3/4 justify-around [&>button]:flex [&>button]:gap-2'>

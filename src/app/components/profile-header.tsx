@@ -1,48 +1,16 @@
-'use client'
+import { fetchUserInfo } from '@/lib/getUserSession'
+import { IconArrowNarrowLeft } from '@tabler/icons-react'
+import ProfileImage from './profile-image'
 
-import useGetUserInfo from '@/hooks/useGetUserInfo'
-import { IconArrowNarrowLeft, IconUser } from '@tabler/icons-react'
-import { useState } from 'react'
-
-const ProfileHeader = ({ tweets }: { tweets: any }) => {
-  const [uploadImage, setUploadImage] = useState(false)
-  const { user }: { user: any } = useGetUserInfo({ uploadImage, tweets })
-
+const ProfileHeader = async () => {
+  const user = await fetchUserInfo()
   if (user) {
     const [year, month, day] = user.birthday.split('-')
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const birthday = `${parseInt(day, 10)} de ${months[parseInt(month, 10) - 1]} de ${year}`
 
-    const handleSubmit = async (e: any) => {
-      e.preventDefault()
-      if (e.target[1].value !== '') {
-        const res = await fetch('/api/upload-avatar', {
-          method: 'PUT',
-          headers: {
-            'content-type': 'application/json'
-          },
-          body: JSON.stringify(e.target[1].value)
-        })
-
-        const data = await res.json()
-        console.log(data)
-        if (data) {
-          e.target[1].value = ''
-          setUploadImage(false)
-        } return null
-      } return null
-    }
-
     return (
       <header className='border-x-2 border-gray-500  w-full'>
-        <div className={`${!uploadImage ? 'hidden' : 'absolute h-[2000px] w-[1000px] -translate-x-44 flex backdrop-blur-lg z-10'}`}>
-          <form onSubmit={handleSubmit} className= 'flex justify-center flex-col backdrop-blur-xl bg-white/30 h-fit translate-x-[400px] translate-y-[400px] w-fit py-3 rounded-md px-5 gap-3 ' action="">
-            <button type='button' onClick={() => { setUploadImage(false) }} className='flex self-end'>x</button>
-            <label htmlFor="">Upload your url image</label>
-            <input type="text" name='avatar_url' />
-            <button type='submit' className='py-1 w-fit flex self-center px-3 bg-slate-600 rounded-full'>upload image</button>
-          </form>
-        </div>
         <div className='flex justify-start gap-5 px-4'>
           <div><IconArrowNarrowLeft /></div>
           <div className='flex flex-col justify-start'>
@@ -55,11 +23,7 @@ const ProfileHeader = ({ tweets }: { tweets: any }) => {
             <picture className='w-full'></picture>
           </div>
           <div className='flex justify-between px-4 h-[100px]'>
-            <picture className=' relative rounded-full bg-gray-700 w-32 h-32 -translate-y-16 object-contain'>
-              <button onClick={() => { setUploadImage(true) }} className=' absolute right-1/2 translate-x-1/2 top-1/2 -translate-y-1/2 w-full '>
-                {user?.avatar_url === null ? <IconUser size={'50px'}/> : <img src={user?.avatar_url} alt={user?.avatar_url} className='rounded-full '/>}</button>
-            </picture>
-
+            <ProfileImage avatar={user.avatar_url}/>
             <button className='flex mt-3 rounded-full border-gray-700 border-2 h-fit px-5 py-1'>Edit profile</button>
           </div>
         </div>
@@ -94,6 +58,8 @@ const ProfileHeader = ({ tweets }: { tweets: any }) => {
         </div>
       </header>
     )
+  } else {
+    return ('')
   }
 }
 

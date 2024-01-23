@@ -60,7 +60,6 @@ export async function DELETE (req: NextRequest) {
         }
       }
     })
-    console.log(tweets)
 
     return NextResponse.json(tweets, { status: 200 })
   } catch (error: any) {

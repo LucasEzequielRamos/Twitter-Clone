@@ -1,6 +1,6 @@
-import InputTweets from '@/components/input-tweets'
-import TweetsList from '@/components/tweet-list'
-import ProfileHeader from '@/components/profile-header'
+import InputTweets from '../../components/input-tweets'
+import TweetsList from '../../components/tweet-list'
+import ProfileHeader from '../../components/profile-header'
 
 const Dashboard = () => {
   return (

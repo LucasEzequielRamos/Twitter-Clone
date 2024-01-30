@@ -1,5 +1,5 @@
 'use client'
-import { deleteTweet } from '@/lib/actions'
+import { deleteTweet } from '../lib/actions'
 import { IconTrash } from '@tabler/icons-react'
 import React from 'react'
 

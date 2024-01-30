@@ -24,6 +24,7 @@ model Users {
   followers Followers[] @relation("followers_user")
   following Followers[] @relation("following_user")
   tweets Tweets[]
+  likes Tweets_likes[]
 }
 
 model Followers {
@@ -43,5 +44,15 @@ num_retweets Int @default(0)
 num_comments Int @default(0)
 created_at DateTime @default(now()) @db.Timestamp(0)
 user Users @relation(fields: [user_id], references: [id])
+likes Tweets_likes[]
+}
+
+model Tweets_likes{
+tweet_id Int
+user_id Int
+@@id([tweet_id, user_id])
+user Users @relation(fields: [user_id], references: [id])
+tweet Tweets @relation(fields: [tweet_id], references: [tweet_id])
+
 }
 

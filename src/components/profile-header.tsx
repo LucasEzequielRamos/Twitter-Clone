@@ -1,10 +1,10 @@
-import { fetchUserInfo } from '@/lib/getUserSession'
+import { fetchUserInfo } from '../lib/getUserSession'
 import { IconArrowNarrowLeft } from '@tabler/icons-react'
 import ProfileImage from './profile-image'
 
 const ProfileHeader = async () => {
   const user = await fetchUserInfo()
-  if (user) {
+  if (!user.message) {
     const [year, month, day] = user.birthday.split('-')
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const birthday = `${parseInt(day, 10)} de ${months[parseInt(month, 10) - 1]} de ${year}`

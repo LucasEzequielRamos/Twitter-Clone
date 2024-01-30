@@ -1,5 +1,5 @@
 // import { getTweets } from '@/lib/getTweets'
-import { getTweets } from '@/lib/getTweets'
+import { getTweets } from '../lib/getTweets'
 import TweetCard from './tweet-card'
 
 const TweetsList = async () => {

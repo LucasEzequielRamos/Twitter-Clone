@@ -52,7 +52,13 @@ export async function DELETE (req: NextRequest) {
   try {
     const { tweet_id, session } = await req.json()
 
-    const tweets = await db.tweets.delete({
+    const tweetLike = await db.tweets_likes.deleteMany({
+      where: {
+        tweet_id
+      }
+    })
+    console.log(tweetLike)
+    const tweet = await db.tweets.deleteMany({
       where: {
         tweet_id,
         user: {
@@ -61,7 +67,7 @@ export async function DELETE (req: NextRequest) {
       }
     })
 
-    return NextResponse.json(tweets, { status: 200 })
+    return NextResponse.json(tweet, { status: 200 })
   } catch (error: any) {
     console.log(error)
     return NextResponse.json({

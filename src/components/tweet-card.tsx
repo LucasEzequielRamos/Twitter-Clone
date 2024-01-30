@@ -1,6 +1,7 @@
 import { IconHeart, IconMessageCircle, IconRepeat } from '@tabler/icons-react'
 import React from 'react'
 import ButtonDeleteTweet from './button-delete-tweet'
+import ButtonLikeTweet from './button-like-tweet'
 
 interface tweet {
   tweet_id: number
@@ -14,7 +15,7 @@ const TweetCard = ({ user, tweet }: { user: any, tweet: tweet }) => {
       <div className="flex p-3">
         <div className=" flex pr-3">
           <picture className='rounded-full w-10 h-10 bg-gray-700 object-contain'>
-            <img className='rounded-full' src={user?.avatar_url} alt={user?.avatar_url} />
+            <img className='rounded-full h-full' src={user?.avatar_url} alt={user?.avatar_url} />
           </picture>
         </div>
         <div className='flex flex-1 flex-col gap-4'>
@@ -29,7 +30,7 @@ const TweetCard = ({ user, tweet }: { user: any, tweet: tweet }) => {
           <div className='flex w-3/4 justify-around [&>button]:flex [&>button]:gap-2'>
             <button><IconMessageCircle/></button>
             <button><IconRepeat/></button>
-            <button><IconHeart/>{tweet.num_likes === 0 ? '' : tweet.num_likes}</button>
+            <ButtonLikeTweet tweet_id={tweet.tweet_id} ><IconHeart/>  {tweet.num_likes === 0 ? '' : tweet.num_likes}</ButtonLikeTweet>
           </div>
         </div>
       </div>

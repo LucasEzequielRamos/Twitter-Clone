@@ -9,7 +9,8 @@ interface tweet {
   content: string
 }
 
-const TweetCard = ({ user, tweet }: { user: any, tweet: tweet }) => {
+const TweetCard = ({ user, tweet, userSession }: { user: any, tweet: tweet, userSession: any }) => {
+  const paintHeart = userSession.likes[0]?.tweet_id === tweet.tweet_id
   return (
     <article className=' border-x-2 border-b-2 w-full border-gray-500'>
       <div className="flex p-3">
@@ -30,7 +31,7 @@ const TweetCard = ({ user, tweet }: { user: any, tweet: tweet }) => {
           <div className='flex w-3/4 justify-around [&>button]:flex [&>button]:gap-2'>
             <button><IconMessageCircle/></button>
             <button><IconRepeat/></button>
-            <ButtonLikeTweet tweet_id={tweet.tweet_id} ><IconHeart/>  {tweet.num_likes === 0 ? '' : tweet.num_likes}</ButtonLikeTweet>
+            <ButtonLikeTweet tweet_id={tweet.tweet_id} ><IconHeart fill={paintHeart ? 'red' : 'black'} color='red'/>  {tweet.num_likes === 0 ? '' : tweet.num_likes}</ButtonLikeTweet>
           </div>
         </div>
       </div>

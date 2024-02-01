@@ -5,7 +5,11 @@ export async function GET (req: NextRequest) {
   try {
     const tweets = await db.tweets.findMany({
       include: {
-        user: true
+        user: {
+          include: {
+            likes: true
+          }
+        }
       },
       orderBy: {
         tweet_id: 'desc'

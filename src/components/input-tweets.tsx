@@ -1,5 +1,5 @@
 'use client'
-import { postTweet } from '../lib/actions'
+import { postTweet } from '../lib/postActions'
 import { useRef } from 'react'
 
 const InputTweets = () => {

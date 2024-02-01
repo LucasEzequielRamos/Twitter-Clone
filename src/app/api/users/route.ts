@@ -15,7 +15,8 @@ export async function GET (req: Request) {
       include: {
         tweets: true,
         followers: true,
-        following: true
+        following: true,
+        likes: true
       }
     })
 

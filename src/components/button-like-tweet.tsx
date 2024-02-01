@@ -1,5 +1,5 @@
 'use client'
-import { updateTweet } from '../lib/actions'
+import { updateTweet } from '../lib/postActions'
 import React from 'react'
 
 const ButtonLikeTweet = ({ tweet_id, children }: { tweet_id: number, children: React.ReactNode }) => {

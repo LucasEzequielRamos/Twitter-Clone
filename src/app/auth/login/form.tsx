@@ -3,9 +3,12 @@
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 const Form = () => {
   const [error, setError] = useState<string | null | undefined>(null)
+  const route = useRouter()
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -17,6 +20,8 @@ const Form = () => {
     })
     if (res?.status !== 200) {
       setError(res?.error)
+    } else {
+      route.push('/dashboard')
     }
   }
 

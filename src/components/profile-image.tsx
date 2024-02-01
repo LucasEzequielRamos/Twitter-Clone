@@ -1,6 +1,6 @@
 'use client'
 
-import { updateProfilePhoto } from '../lib/actions'
+import { updateProfilePhoto } from '../lib/postActions'
 import { IconUser } from '@tabler/icons-react'
 import { useState } from 'react'
 

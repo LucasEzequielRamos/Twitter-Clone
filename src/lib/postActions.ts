@@ -20,19 +20,23 @@ export const postTweet = async (formData: FormData) => {
   }
 }
 
-export const deleteTweet = async (tweet_id: number) => {
+export const deleteTweet = async (tweet_id: number, user_id: number, owner: number) => {
   try {
-    const session = await getServerSession()
-    await fetch('http://localhost:3000/api/posts', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ tweet_id, session })
-    })
-    revalidateTag('posts')
-  } catch (error) {
-    console.log(error)
+    if (owner === user_id) {
+      const session = await getServerSession()
+      await fetch('http://localhost:3000/api/posts', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ tweet_id, session })
+      })
+      revalidateTag('posts')
+    } else {
+      throw new Error('this tweet is not your')
+    }
+  } catch (error: any) {
+    console.log(error.message)
   }
 }
 

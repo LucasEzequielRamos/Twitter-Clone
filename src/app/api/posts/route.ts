@@ -56,12 +56,12 @@ export async function DELETE (req: NextRequest) {
   try {
     const { tweet_id, session } = await req.json()
 
-    const tweetLike = await db.tweets_likes.deleteMany({
+    await db.tweets_likes.deleteMany({
       where: {
         tweet_id
       }
     })
-    console.log(tweetLike)
+
     const tweet = await db.tweets.deleteMany({
       where: {
         tweet_id,

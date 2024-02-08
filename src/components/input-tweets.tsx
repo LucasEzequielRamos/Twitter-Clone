@@ -6,7 +6,7 @@ const InputTweets = () => {
   const formRef = useRef<HTMLFormElement>(null)
 
   return (
-    <form ref={formRef} className='flex flex-col border-2 border-gray-500 relative w-full' action={async (formData) => {
+    <form ref={formRef} className='flex flex-col border-[1px] border-gray-500 relative w-full' action={async (formData) => {
       await postTweet(formData)
       formRef.current?.reset()
     }}>

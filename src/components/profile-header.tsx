@@ -10,7 +10,7 @@ const ProfileHeader = async () => {
     const birthday = `${parseInt(day, 10)} de ${months[parseInt(month, 10) - 1]} de ${year}`
 
     return (
-      <header className='border-x-2 border-gray-500  w-full'>
+      <header className='border-x-[1px] border-gray-500  w-full'>
         <div className='flex justify-start gap-5 px-4'>
           <div><IconArrowNarrowLeft /></div>
           <div className='flex flex-col justify-start'>

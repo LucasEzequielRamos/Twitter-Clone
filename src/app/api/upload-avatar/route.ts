@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
-import db from '@/../utils/db'
+import db from '@/utils/db'
 
 export async function PUT (req: NextRequest) {
   try {

@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import db from '@/../utils/db'
+import db from '@/utils/db'
 
 export async function PUT (req: NextRequest) {
   try {
@@ -22,7 +22,6 @@ export async function PUT (req: NextRequest) {
     })
 
     if (tweet_liked.length === 0) {
-      console.log('pongo mg')
       await db.tweets_likes.create({
         data: {
           user_id: userFound.id,
@@ -38,7 +37,6 @@ export async function PUT (req: NextRequest) {
         }
       })
     } else {
-      console.log('saco mg')
       await db.tweets_likes.deleteMany({
         where: {
           tweet_id,

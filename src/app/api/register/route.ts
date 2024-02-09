@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server'
-import db from '@/../utils/db'
+import db from '@/utils/db'
 import bcrypt from 'bcryptjs'
 
 export async function POST (req: NextRequest) {

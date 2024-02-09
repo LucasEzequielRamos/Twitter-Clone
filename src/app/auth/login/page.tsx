@@ -1,4 +1,4 @@
-import Form from '@/auth/login/form'
+import Form from '@/app/auth/login/form'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 const LoginPage = async () => {

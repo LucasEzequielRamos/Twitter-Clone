@@ -1,6 +1,6 @@
 import { fetchUserInfo } from '../lib/getUserSession'
-import { IconArrowNarrowLeft } from '@tabler/icons-react'
-import ProfileImage from './profile-image'
+import { IconArrowNarrowLeft, IconUser } from '@tabler/icons-react'
+import EditProfileModal from './edit-profile-modal'
 
 const ProfileHeader = async () => {
   const user = await fetchUserInfo()
@@ -11,8 +11,8 @@ const ProfileHeader = async () => {
 
     return (
       <header className='border-x-[1px] border-gray-500  w-full'>
-        <div className='flex justify-start gap-5 px-4'>
-          <div><IconArrowNarrowLeft /></div>
+        <div className='flex justify-start gap-7 px-4 py-3 items-center'>
+          <a href='/home'><IconArrowNarrowLeft /></a>
           <div className='flex flex-col justify-start'>
             <h3 className='text-xl font-bold'>{user?.full_name}</h3>
             <p className='text-slate-300/60 text-sm'>{user?.tweets.length} posts</p>
@@ -23,8 +23,10 @@ const ProfileHeader = async () => {
             <picture className='w-full'></picture>
           </div>
           <div className='flex justify-between px-4 h-[100px]'>
-            <ProfileImage avatar={user.avatar_url}/>
-            <button className='flex mt-3 rounded-full border-gray-700 border-2 h-fit px-5 py-1'>Edit profile</button>
+            <picture className='relative rounded-full w-32 h-32 -translate-y-16 object-contain'>
+              {user.avatar_url === null ? <IconUser size={'50px'}/> : <img src={user.avatar_url} alt={user.avatar_url} className='rounded-full h-full w-full'/>}
+            </picture>
+            <EditProfileModal/>
           </div>
         </div>
         <div className='flex flex-col gap-3 px-4'>

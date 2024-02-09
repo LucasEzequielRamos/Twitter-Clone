@@ -1,5 +1,5 @@
 import CredentialsProvider from 'next-auth/providers/credentials'
-import db from '@/../utils/db'
+import db from '@/utils/db'
 import bcrypt from 'bcryptjs'
 
 interface User {

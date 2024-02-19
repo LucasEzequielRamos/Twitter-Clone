@@ -1,10 +1,12 @@
-import InputTweets from '../../components/input-tweets'
-import TweetsList from '../../components/tweet-list'
-import ProfileHeader from '../../components/profile-header'
+import InputTweets from '../../../components/input-tweets'
+import TweetsList from '../../../components/tweet-list'
+import ProfileHeader from '../../../components/profile-header'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
-const Dashboard = async () => {
+const Dashboard = async ({ params }: { params: { id: number } }) => {
+  const { id } = params
+
   const session = await getServerSession()
   if (!session) redirect('/auth/login')
   return (
@@ -12,7 +14,7 @@ const Dashboard = async () => {
       <ProfileHeader/>
       <main className='flex justify-center items-center flex-col'>
         <InputTweets/>
-        <TweetsList/>
+        <TweetsList userId={Number(id)} page={'dashboard'}/>
       </main>
     </section>
   )

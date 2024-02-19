@@ -21,7 +21,7 @@ const Form = () => {
     if (res?.status !== 200) {
       setError(res?.error)
     } else {
-      route.push('/dashboard')
+      route.push('/home')
     }
   }
 

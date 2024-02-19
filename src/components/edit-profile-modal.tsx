@@ -6,7 +6,7 @@ const EditProfileModal = () => {
   return (
     openModal
       ? <div className='absolute flex justify-center items-center'>
-        <form action="" className=' relative z-30 flex w-[565px] flex-col gap-4 [&>label]:flex [&>label]:flex-col bg-gray-800 p-4'>
+        <form action="" className=' relative z-30  flex w-[565px] flex-col gap-4 [&>label]:flex [&>label]:flex-col bg-gray-800 p-4'>
           <button onClick={() => { setOpenModal(false) }}>X</button>
           <label className='' htmlFor="">
             Edit your nickname

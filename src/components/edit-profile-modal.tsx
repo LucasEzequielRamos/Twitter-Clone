@@ -3,6 +3,16 @@ import { useState } from 'react'
 
 const EditProfileModal = () => {
   const [openModal, setOpenModal] = useState(false)
+  const [profile, setProfile] = useState({})
+  const [file, setFile] = useState(null)
+
+  const handleChange = (e: any) => {
+    setProfile({
+      ...profile,
+      [e.currentTarget.name]: e.currentTarget.value
+    })
+  }
+
   return (
     openModal
       ? <div className='absolute flex justify-center items-center'>
@@ -10,19 +20,15 @@ const EditProfileModal = () => {
           <button onClick={() => { setOpenModal(false) }}>X</button>
           <label className='' htmlFor="">
             Edit your nickname
-            <input name='user_nick' type="text" />
+            <input name='user_nick' type="text" onChange={handleChange} />
           </label>
           <label htmlFor="">
             Edit your phone number
-            <input name='phonenumber' type="text" />
-          </label>
-          <label htmlFor="">
-            Edit your avatar
-            <input name='avatar_url' type="text" />
+            <input name='phonenumber' type="text" onChange={handleChange} />
           </label>
           <label htmlFor="">
             Edit your description profile
-            <input name='description' type="text" />
+            <input name='description' type="text" onChange={handleChange}/>
           </label>
           <label htmlFor="">
             Edit your name
@@ -32,6 +38,19 @@ const EditProfileModal = () => {
             Edit your birthday
             <input name='birthday' type="text" />
           </label>
+          <label htmlFor="">
+            Edit your avatar
+            <input name='avatar_url' type="file" onChange={(e) => {
+              setFile(e.target.files[0])
+            }}/>
+          </label>
+          {file && (
+            <img
+              className="w-full h-full"
+              src={URL.createObjectURL(file)}
+              alt=""
+            />
+          )}
           <button>Edit</button>
         </form>
       </div>

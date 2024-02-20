@@ -15,13 +15,12 @@ interface tweet {
 
 const TweetCard = ({ user, tweet, userSession }: { user: any, tweet: tweet, userSession: any }) => {
   const paintHeart = userSession.likes.find((like: any) => like.tweet_id === tweet.tweet_id)
-  console.log(user)
   return (
     <article className=' border-x-[1px] border-b-[1px] w-full border-gray-500'>
       <div className="flex p-3">
         <div className=" flex pr-3">
-          <picture className='rounded-full w-10 h-10 bg-gray-700 object-contain'>
-            <img className='rounded-full h-full' src={user?.avatar_url} alt={user?.avatar_url} />
+          <picture className='rounded-full size-10 bg-gray-700 object-contain'>
+            <img className='rounded-full h-full w-full' src={user?.avatar_url} alt={user?.avatar_url} />
           </picture>
         </div>
         <div className='flex flex-1 flex-col gap-4'>

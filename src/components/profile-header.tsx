@@ -49,7 +49,7 @@ const ProfileHeader = async () => {
             </p>
           </div>
         </div>
-        <div >
+        <div className='border-b-[1.5px] border-white/60'>
           <ul className='flex mt-3 [&>li]:flex-1 [&>li]:text-center items-center [&>li]:p-3 [&>li]:'>
             <li className='hover:bg-white/10 cursor-pointer transition'>Posts</li>
             <li className='hover:bg-white/10 cursor-pointer transition'>Responses</li>

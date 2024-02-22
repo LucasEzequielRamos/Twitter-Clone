@@ -34,7 +34,7 @@ const ProfileHeader = async () => {
             <h3 className='text-xl font-bold'>{user?.full_name}</h3>
             <p className='text-slate-300/60 text-base'>@{user?.user_nick}</p>
           </div>
-          <div>description</div>
+          <div>{user.description}</div>
           <div className='flex gap-3 flex-wrap justify-start [&>p]:text-slate-300/60 [&>p]:text-base [&>p]:'>
             <p>Buenos Aires, Argentina</p>
             <p>Birthday: {birthday}</p>

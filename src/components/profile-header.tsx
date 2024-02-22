@@ -1,11 +1,13 @@
-import { fetchUserInfo } from '../lib/getUserSession'
 import { IconArrowNarrowLeft, IconUser } from '@tabler/icons-react'
 import EditProfileModal from './edit-profile-modal'
+import ButtonToFollow from './follow-button'
+import { getOneUser } from '@/lib/getOneUser'
 
-const ProfileHeader = async () => {
-  const user = await fetchUserInfo()
-  if (!user.message) {
-    const [year, month, day] = user.birthday.split('-')
+const ProfileHeader = async ({ profileId, userSessionId }: { profileId: number, userSessionId: number }) => {
+  const user = await getOneUser(profileId)
+
+  if (user.birthday) {
+    const [year, month, day] = user?.birthday?.split('-')
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const birthday = `${parseInt(day, 10)} de ${months[parseInt(month, 10) - 1]} de ${year}`
 
@@ -15,7 +17,7 @@ const ProfileHeader = async () => {
           <a href='/home'><IconArrowNarrowLeft /></a>
           <div className='flex flex-col justify-start'>
             <h3 className='text-xl font-bold'>{user?.full_name}</h3>
-            <p className='text-slate-300/60 text-sm'>{user?.tweets.length} posts</p>
+            <p className='text-slate-300/60 text-sm'>{user?.tweets?.length} posts</p>
           </div>
         </div>
         <div className='w-full'>
@@ -26,7 +28,11 @@ const ProfileHeader = async () => {
             <picture className='relative rounded-full w-32 h-32 -translate-y-16 object-contain'>
               {user.avatar_url === null ? <IconUser size={'50px'}/> : <img src={user.avatar_url} alt={user.avatar_url} className='rounded-full h-full w-full'/>}
             </picture>
-            <EditProfileModal/>
+            {
+              profileId === userSessionId
+                ? <EditProfileModal/>
+                : <ButtonToFollow/>
+            }
           </div>
         </div>
         <div className='flex flex-col gap-3 px-4'>
@@ -60,8 +66,6 @@ const ProfileHeader = async () => {
         </div>
       </header>
     )
-  } else {
-    return ('')
   }
 }
 

@@ -18,7 +18,6 @@ const EditProfileModal = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-
     if (!profile) return
     const formData = new FormData()
     formData.append('user_nick', profile.user_nick)
@@ -32,7 +31,7 @@ const EditProfileModal = () => {
       method: 'PUT',
       body: formData
     })
-    console.log(res)
+    console.log(await res.json())
 
     form.current?.reset()
     route.refresh()

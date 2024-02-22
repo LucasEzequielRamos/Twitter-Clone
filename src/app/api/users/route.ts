@@ -39,14 +39,13 @@ export async function PUT (req: NextRequest) {
     const data = await req.formData()
     const image = data.get('image')
 
-    const buffer = await processImage(image)
+    const buffer = image && await processImage(image)
 
     const res = await new Promise((resolve, reject) => {
       cloudinary.uploader.upload_stream({ resource_type: 'image' },
         async (err, result) => {
           if (err) {
             console.log(err)
-            reject(err)
           }
 
           resolve(result)
@@ -61,13 +60,15 @@ export async function PUT (req: NextRequest) {
     })
 
     const dataToEdit = {
-      user_nick: data.get('user_nick') === '' ? userFound.user_nick : data.get('user_nick'),
-      phonenumber: data.get('phonenumber') === '' ? userFound.phonenumber : data.get('phonenumber'),
-      avatar_url: res.secure_url === '' ? userFound.avatar_url : res.secure_url,
-      description: data.get('description') === '' ? userFound.description : data.get('description'),
-      full_name: data.get('full_name') === '' ? userFound.full_name : data.get('full_name'),
-      birthday: data.get('birthday') === '' ? userFound.birthday : data.get('birthday')
+      user_nick: data.get('user_nick') === '' || undefined ? userFound.user_nick : data.get('user_nick'),
+      phonenumber: data.get('phonenumber') === '' || undefined ? userFound.phonenumber : data.get('phonenumber'),
+      avatar_url: res?.secure_url === '' || undefined ? userFound.avatar_url : res.secure_url,
+      description: data.get('description') === '' || undefined ? userFound.description : data.get('description'),
+      full_name: data.get('full_name') === '' || undefined ? userFound.full_name : data.get('full_name'),
+      birthday: data.get('birthday') === '' || undefined ? userFound.birthday : data.get('birthday')
     }
+
+    console.log(dataToEdit)
 
     await db.users.updateMany({
       where: {

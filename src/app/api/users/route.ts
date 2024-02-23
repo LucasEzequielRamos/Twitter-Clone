@@ -60,12 +60,12 @@ export async function PUT (req: NextRequest) {
     })
 
     const dataToEdit = {
-      user_nick: data.get('user_nick') === '' || undefined ? userFound.user_nick : data.get('user_nick'),
-      phonenumber: data.get('phonenumber') === '' || undefined ? userFound.phonenumber : data.get('phonenumber'),
-      avatar_url: res?.secure_url === '' || undefined ? userFound.avatar_url : res.secure_url,
-      description: data.get('description') === '' || undefined ? userFound.description : data.get('description'),
-      full_name: data.get('full_name') === '' || undefined ? userFound.full_name : data.get('full_name'),
-      birthday: data.get('birthday') === '' || undefined ? userFound.birthday : data.get('birthday')
+      user_nick: data.get('user_nick') === 'undefined' || undefined ? userFound.user_nick : data.get('user_nick'),
+      phonenumber: data.get('phonenumber') === 'undefined' || undefined ? userFound.phonenumber : data.get('phonenumber'),
+      avatar_url: !res ? userFound.avatar_url : res.secure_url,
+      description: data.get('description') === 'undefined' || undefined ? userFound.description : data.get('description'),
+      full_name: data.get('full_name') === 'undefined' || undefined ? userFound.full_name : data.get('full_name'),
+      birthday: data.get('birthday') === 'undefined' || undefined ? userFound.birthday : data.get('birthday')
     }
 
     console.log(dataToEdit)

@@ -17,21 +17,21 @@ const TweetCard = ({ user, tweet, userSession }: { user: any, tweet: tweet, user
   const paintHeart = userSession.likes.find((like: any) => like.tweet_id === tweet.tweet_id)
   return (
     <article className=' border-x-[1px] border-b-[1px] w-full border-gray-500'>
-      <div className="flex p-3">
-        <div className=" flex pr-3">
+      <div className='flex p-3'>
+        <div className=' flex pr-3'>
           <picture className='rounded-full size-10 bg-gray-700 object-contain'>
             <img className='rounded-full h-full w-full' src={user?.avatar_url} alt={user?.avatar_url} />
           </picture>
         </div>
         <div className='flex flex-1 flex-col gap-4'>
-          <div className="flex justify-between ">
+          <div className='flex justify-between'>
             <div className='flex gap-2'>
-              <p className='font-bold'>{user.full_name}</p>
+              <a href={`/dashboard/${user.id}`} className='font-bold'>{user.full_name}</a>
               <p className='text-gray-600'>@{user.user_nick}</p>
             </div>
             <ButtonDeleteTweet tweet_id={tweet.tweet_id} owner={tweet.user_id} user_id={userSession.id}/>
           </div>
-          <div>{tweet.content}</div>
+          <p className='h-auto w-[450px] break-words'>{tweet.content}</p>
           <div className='flex w-3/4 justify-around [&>button]:flex [&>button]:gap-2'>
             <button><IconMessageCircle/></button>
             <button><IconRepeat/></button>

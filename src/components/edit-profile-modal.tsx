@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 
 const EditProfileModal = () => {
   const [openModal, setOpenModal] = useState(false)
-  const [profile, setProfile] = useState<any>(null)
+  const [profile, setProfile] = useState<any>({})
   const [file, setFile] = useState<File | null | undefined>(null)
   const form = useRef(null)
   const route = useRouter()
@@ -18,7 +18,7 @@ const EditProfileModal = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    if (!profile) return
+    if (Object.keys(profile).length === 0 && !file) return
     const formData = new FormData()
     formData.append('user_nick', profile.user_nick)
     formData.append('phonenumber', profile.phonenumber)
@@ -34,6 +34,7 @@ const EditProfileModal = () => {
     console.log(await res.json())
 
     form.current?.reset()
+    setFile(null)
     route.refresh()
     setOpenModal(false)
   }
@@ -89,7 +90,7 @@ const EditProfileModal = () => {
               alt=""
             />
           )}
-          <button className={`p-2 rounded-md bg-slate-700 w-1/3 mx-auto ${!profile && 'opacity-60 cursor-default'} `}>Edit</button>
+          <button className={`p-2 rounded-md bg-slate-700 w-1/3 mx-auto ${!profile || !file && 'opacity-60 cursor-default'} `}>Edit</button>
         </form>
       </div>
       : <button onClick={() => { setOpenModal(true) }} className='flex mt-3 rounded-full border-gray-700 border-2 h-fit px-5 py-1'>Edit profile</button>

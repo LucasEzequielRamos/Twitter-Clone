@@ -9,7 +9,7 @@ const page = async () => {
   if (!session) redirect('/auth/login')
   const { avatar_url } = await fetchUserInfo()
   return (
-    <section className="w-[600px] m-auto flex flex-col">
+    <section className="lg:w-[600px] m-auto flex flex-col">
       <InputTweets profileImage={avatar_url} />
       <TweetsList page={undefined} userId={null}/>
     </section>

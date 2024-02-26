@@ -24,7 +24,7 @@ export default async function RootLayout ({
       <body className={inter.className}>
         <SessionProvider session={session}>
           <Navbar/>
-          <div className=''>
+          <div className='lg:w-[1000px] lg:mx-auto'>
             {children}
           </div>
         </SessionProvider>

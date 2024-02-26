@@ -7,7 +7,7 @@ import React from 'react'
 const Navbar = () => {
   const { data: session } = useSession()
   return (
-    <header className='sticky top-0 backdrop-blur-sm bg-inherit/5 w-[600px] m-auto z-30 border-b-[1px] border-x-[1px] border-gray-500'>
+    <header className='sticky top-0 backdrop-blur-sm bg-inherit/5 lg:w-[600px] w-full m-auto z-30 border-b-[1px] border-x-[1px] border-gray-500'>
       <nav className='flex justify-between px-5 py-5'>
         <div><h3>TWITTER CLONE</h3></div>
         {!session

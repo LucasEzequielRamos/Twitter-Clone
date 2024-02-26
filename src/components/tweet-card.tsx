@@ -29,9 +29,13 @@ const TweetCard = ({ user, tweet, userSession }: { user: any, tweet: tweet, user
               <a href={`/dashboard/${user.id}`} className='font-bold'>{user.full_name}</a>
               <p className='text-gray-600'>@{user.user_nick}</p>
             </div>
-            <ButtonDeleteTweet tweet_id={tweet.tweet_id} owner={tweet.user_id} user_id={userSession.id}/>
+            {
+              tweet.user_id === userSession.id
+                ? <ButtonDeleteTweet tweet_id={tweet.tweet_id} owner={tweet.user_id} user_id={userSession.id}/>
+                : ''
+            }
           </div>
-          <p className='h-auto w-[450px] break-words'>{tweet.content}</p>
+          <p className='h-auto lg:w-[450px] w-[280px] break-words'>{tweet.content}</p>
           <div className='flex w-3/4 justify-around [&>button]:flex [&>button]:gap-2'>
             <button><IconMessageCircle/></button>
             <button><IconRepeat/></button>

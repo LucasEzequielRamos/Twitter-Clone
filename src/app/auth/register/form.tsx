@@ -42,7 +42,7 @@ const Form = () => {
 
   return (
     <section className='h-screen flex justify-center items-center'>
-      <div className='flex flex-col gap-7 bg-slate-700 py-4 px-8 rounded-lg justify-center'>
+      <div className='flex flex-col gap-7 bg-slate-700 py-4 px-8 mx-2 rounded-lg justify-center'>
         <h2 className='text-2xl'>Create your account in Twitter Clone</h2>
         <form onSubmit={handleSubmit} className='flex flex-col gap-4 [&>input]:p-1 [&>input]:w-4/5 items-center'>
           <input onChange={handleChange} type="text" placeholder="user_nick" name="user_nick" required />

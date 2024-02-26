@@ -1,14 +1,18 @@
 import Aside from '@/components/aside'
-import React from 'react'
+import NavbarBottom from '@/components/navbar-bottom'
+import { fetchUserInfo } from '@/lib/getUserSession'
 
-const layout = ({
+const layout = async ({
   children
 }: {
   children: React.ReactNode
 }) => {
+  const { id } = await fetchUserInfo()
+
   return (
-    <div>
+    <div className=''>
       <Aside/>
+      <NavbarBottom id={id}/>
       {children}
     </div>
   )

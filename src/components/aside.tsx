@@ -4,7 +4,7 @@ import { IconBrandX, IconHome, IconUser } from '@tabler/icons-react'
 async function Aside () {
   const { id } = await fetchUserInfo()
   return (
-    <aside className='w-52 fixed  '>
+    <aside className='w-52 fixed lg:block hidden'>
       <nav>
         <a href='/home'><IconBrandX className='size-8'/></a>
         <ul>

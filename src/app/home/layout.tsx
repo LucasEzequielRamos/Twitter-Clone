@@ -13,7 +13,7 @@ const layout = async ({
 
   return (
     <div>
-      <Aside/>
+      <Aside id={id}/>
       <NavbarBottom id={id}/>
       {children}
     </div>

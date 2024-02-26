@@ -1,8 +1,6 @@
-import { fetchUserInfo } from '@/lib/getUserSession'
 import { IconBrandX, IconHome, IconUser } from '@tabler/icons-react'
 
-async function Aside () {
-  const { id } = await fetchUserInfo()
+function Aside ({ id }: { id: number }) {
   return (
     <aside className='w-52 fixed lg:block hidden'>
       <nav>

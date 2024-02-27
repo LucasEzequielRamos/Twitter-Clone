@@ -4,6 +4,7 @@ import db from '@/utils/db'
 import { authOptions } from '../../../utils/auth-options'
 import { processImage } from '@/lib/processImage'
 import cloudinary from '@/utils/cloudinary'
+import { type UploadApiResponse } from 'cloudinary'
 
 export async function GET (req: Request) {
   try {
@@ -31,6 +32,10 @@ export async function GET (req: Request) {
   }
 }
 
+interface res {
+  secure_url: string
+}
+
 export async function PUT (req: NextRequest) {
   try {
     const session: any = await nextAuthGetServerSession(authOptions)
@@ -41,17 +46,20 @@ export async function PUT (req: NextRequest) {
 
     const buffer = image && await processImage(image)
 
-    const res = await new Promise((resolve, reject) => {
+    const res: res | UploadApiResponse | undefined = await new Promise((resolve, reject) => {
       cloudinary.uploader.upload_stream({ resource_type: 'image' },
         async (err, result) => {
           if (err) {
             console.log(err)
+            reject(err)
           }
 
           resolve(result)
         })
         .end(buffer)
     })
+
+    console.log(res)
 
     const userFound = await db.users.findUnique({
       where: {
@@ -62,13 +70,11 @@ export async function PUT (req: NextRequest) {
     const dataToEdit = {
       user_nick: data.get('user_nick') === 'undefined' || undefined ? userFound.user_nick : data.get('user_nick'),
       phonenumber: data.get('phonenumber') === 'undefined' || undefined ? userFound.phonenumber : data.get('phonenumber'),
-      avatar_url: !res ? userFound.avatar_url : res.secure_url,
+      avatar_url: res?.secure_url ? res.secure_url : userFound.avatar_url,
       description: data.get('description') === 'undefined' || undefined ? userFound.description : data.get('description'),
       full_name: data.get('full_name') === 'undefined' || undefined ? userFound.full_name : data.get('full_name'),
       birthday: data.get('birthday') === 'undefined' || undefined ? userFound.birthday : data.get('birthday')
     }
-
-    console.log(dataToEdit)
 
     await db.users.updateMany({
       where: {

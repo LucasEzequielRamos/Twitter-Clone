@@ -59,8 +59,6 @@ export async function PUT (req: NextRequest) {
         .end(buffer)
     })
 
-    console.log(res)
-
     const userFound = await db.users.findUnique({
       where: {
         email_address: session?.user?.email

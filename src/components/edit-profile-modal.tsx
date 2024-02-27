@@ -6,7 +6,7 @@ const EditProfileModal = () => {
   const [openModal, setOpenModal] = useState(false)
   const [profile, setProfile] = useState<any>({})
   const [file, setFile] = useState<File | null | undefined>(null)
-  const form = useRef(null)
+  const form = useRef<HTMLFormElement>(null)
   const route = useRouter()
 
   const handleChange = (e: any) => {
@@ -27,11 +27,10 @@ const EditProfileModal = () => {
     formData.append('full_name', profile.full_name)
     if (file) formData.append('image', file)
 
-    const res = await fetch('/api/users', {
+    await fetch('/api/users', {
       method: 'PUT',
       body: formData
     })
-    console.log(await res.json())
 
     form.current?.reset()
     setFile(null)
@@ -90,7 +89,7 @@ const EditProfileModal = () => {
               alt=""
             />
           )}
-          <button className={`p-2 rounded-md bg-slate-700 w-1/3 mx-auto ${!profile || !file && 'opacity-60 cursor-default'} `}>Edit</button>
+          <button className={`p-2 rounded-md bg-slate-700 w-1/3 mx-auto ${!profile && !file ? 'opacity-60 cursor-default' : ''} `}>Edit</button>
         </form>
       </div>
       : <button onClick={() => { setOpenModal(true) }} className='flex mt-3 rounded-full border-gray-700 border-2 h-fit px-5 py-1'>Edit profile</button>

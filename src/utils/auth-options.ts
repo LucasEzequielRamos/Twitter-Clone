@@ -28,6 +28,7 @@ export const authOptions: any = {
             }
           })
           if (!userFound) throw new Error('User not found')
+          if (!userFound.password) return
 
           const validPass = await bcrypt.compare(credentials.password, userFound.password)
           if (!validPass) throw new Error('Email or password invalid')

@@ -13,6 +13,7 @@ export async function PUT (req: NextRequest) {
         likes: true
       }
     })
+    if (!userFound) return
 
     const tweet_liked = await db.tweets_likes.findMany({
       where: {

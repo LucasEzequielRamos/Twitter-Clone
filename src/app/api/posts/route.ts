@@ -36,6 +36,7 @@ export async function POST (req: NextRequest) {
       }
     })
 
+    if (!userFound) return
     const tweet = await db.tweets.create({
       data: {
         user_id: userFound.id,

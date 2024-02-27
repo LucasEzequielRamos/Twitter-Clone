@@ -61,19 +61,36 @@ export async function PUT (req: NextRequest) {
 
     const userFound = await db.users.findUnique({
       where: {
-        email_address: session?.user?.email
+        email_address: session.user.email
       }
     })
+    if (userFound === null) return
+
+    const userNick = data.get('user_nick')?.toString()
+    const userNickOrDefault = userNick !== 'undefined' ? userNick : userFound.user_nick
+
+    const phoneNumber = data.get('phonenumber')?.toString()
+    const phoneNumberOrDefault = phoneNumber !== 'undefined' ? phoneNumber : userFound.phonenumber
+
+    const description = data.get('description')?.toString()
+    const descriptionOrDefault = description !== 'undefined' ? description : userFound.description
+
+    const fullName = data.get('full_name')?.toString()
+    const fullNameOrDefault = fullName !== 'undefined' ? fullName : userFound.full_name
+
+    const birthday = data.get('birthday')?.toString()
+    const birthdayOrDefault = birthday !== 'undefined' ? birthday : userFound.birthday
 
     const dataToEdit = {
-      user_nick: data.get('user_nick') === 'undefined' || undefined ? userFound.user_nick : data.get('user_nick'),
-      phonenumber: data.get('phonenumber') === 'undefined' || undefined ? userFound.phonenumber : data.get('phonenumber'),
+      user_nick: userNickOrDefault,
+      phonenumber: phoneNumberOrDefault,
       avatar_url: res?.secure_url ? res.secure_url : userFound.avatar_url,
-      description: data.get('description') === 'undefined' || undefined ? userFound.description : data.get('description'),
-      full_name: data.get('full_name') === 'undefined' || undefined ? userFound.full_name : data.get('full_name'),
-      birthday: data.get('birthday') === 'undefined' || undefined ? userFound.birthday : data.get('birthday')
+      description: descriptionOrDefault,
+      full_name: fullNameOrDefault,
+      birthday: birthdayOrDefault
     }
 
+    if (!dataToEdit) return
     await db.users.updateMany({
       where: {
         email_address: session?.user?.email

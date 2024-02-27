@@ -1,11 +1,17 @@
 import { PrismaClient } from '@prisma/client'
 
-declare global {
-  interface globalThis {
-    prisma: PrismaClient | undefined
-  }
+const prismaClientSingleton = () => {
+  return new PrismaClient()
 }
 
-const prisma = globalThis.prisma || new PrismaClient()
+interface CustomGlobalThis {
+  prisma: PrismaClient
+}
+
+declare const globalThis: CustomGlobalThis
+
+const prisma = globalThis.prisma ?? prismaClientSingleton()
+
+globalThis.prisma = prisma
 
 export default prisma

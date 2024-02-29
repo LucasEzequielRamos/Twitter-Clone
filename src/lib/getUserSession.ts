@@ -12,6 +12,7 @@ export async function fetchUserInfo (): Promise<any> {
       headers: header
     })
 
+    console.log(res, ' res desde fetchUserInfo')
     const userData = await res.json()
     return userData
   } else {

@@ -9,7 +9,6 @@ import { type UploadApiResponse } from 'cloudinary'
 export async function GET (req: Request) {
   try {
     const session: any = await nextAuthGetServerSession(authOptions)
-    console.log(req.headers)
     console.log(session)
     if (!session) throw new Error('session not found')
 

@@ -43,5 +43,11 @@ export const authOptions: any = {
         }
       }
     })
-  ]
+  ],
+  callbacks: {
+    async session ({ session, token }: { session: any, token: any }) {
+      session.user = token
+      return session
+    }
+  }
 }

@@ -6,7 +6,6 @@ import { redirect } from 'next/navigation'
 
 const page = async () => {
   const session = await getServerSession()
-  console.log(session)
   if (!session) redirect('/auth/login')
   const { avatar_url } = await fetchUserInfo()
   return (

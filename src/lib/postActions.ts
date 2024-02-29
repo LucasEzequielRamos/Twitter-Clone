@@ -7,7 +7,7 @@ export const postTweet = async (formData: FormData) => {
   try {
     const session = await getServerSession()
     const content = formData.get('tweet_content')
-    await fetch('http://localhost:3000/api/posts', {
+    await fetch('http://twitter-clone-ac2aldhg9-lucasezequielbecerra.vercel.app/api/posts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ export const deleteTweet = async (tweet_id: number, user_id: number, owner: numb
   try {
     if (owner === user_id) {
       const session = await getServerSession()
-      await fetch('http://localhost:3000/api/posts', {
+      await fetch('http://twitter-clone-ac2aldhg9-lucasezequielbecerra.vercel.app/api/posts', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ export const deleteTweet = async (tweet_id: number, user_id: number, owner: numb
 export const updateTweet = async (tweet_id: number) => {
   try {
     const session = await getServerSession()
-    await fetch('http://localhost:3000/api/likes', {
+    await fetch('http://twitter-clone-ac2aldhg9-lucasezequielbecerra.vercel.app/api/likes', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ export const updateProfilePhoto = async (formData: FormData) => {
   try {
     const session = await getServerSession()
     const avatar = formData.get('avatar_url')
-    await fetch('http://localhost:3000/api/upload-avatar', {
+    await fetch('http://twitter-clone-ac2aldhg9-lucasezequielbecerra.vercel.app/api/upload-avatar', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

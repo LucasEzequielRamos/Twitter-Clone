@@ -9,6 +9,7 @@ import { type UploadApiResponse } from 'cloudinary'
 export async function GET (req: Request) {
   try {
     const session: any = await nextAuthGetServerSession(authOptions)
+    console.log(session)
     if (!session) throw new Error('session not found')
 
     const userFound = await db.users.findUnique({

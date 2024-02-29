@@ -1,14 +1,15 @@
 import { getServerSession } from 'next-auth'
-import { headers } from 'next/headers'
+import type { NextApiRequest } from 'next'
 
-export async function fetchUserInfo (): Promise<any> {
+export async function fetchUserInfo (req: NextApiRequest): Promise<any> {
   const userData = await getServerSession()
-  const cookie: string | null = headers().get('cookie')
   const header = new Headers()
-  if (typeof (cookie) === 'string') header.set('cookies', cookie)
-  console.log(header, 'headeeeeeeeeeeer')
-  console.log(cookie, ' cokieeeeeeeeeeeeeeee')
+
   if (userData !== undefined) {
+    const cookie: string | null = req.headers.cookie ?? ''
+    if (typeof (cookie) === 'string') header.set('Cookie', cookie)
+    console.log(header, 'headeeeeeeeeeeer')
+    console.log(cookie, ' cokieeeeeeeeeeeeeeee')
     const res = await fetch('http://twitter-clone-theta-bay.vercel.app/api/users', {
       method: 'GET',
       headers: header

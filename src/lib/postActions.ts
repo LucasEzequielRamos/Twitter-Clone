@@ -5,15 +5,16 @@ import { revalidateTag } from 'next/cache'
 
 export const postTweet = async (formData: FormData) => {
   try {
-    const session = await getServerSession()
+    const sessión = await getServerSession()
     const contentTweet = formData.get('tweet_content')
-    console.log({ session, contentTweet })
+    const data = { user: sessión?.user, content: contentTweet }
+    console.log(data, typeof (data), 'CHECK DESDE ACTION')
     const res = await fetch('http://twitter-clone-theta-bay.vercel.app/api/posts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ session, content: contentTweet })
+      body: JSON.stringify(data)
     })
     console.log(await res.json())
   } catch (error) {

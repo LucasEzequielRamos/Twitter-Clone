@@ -30,6 +30,8 @@ export async function POST (req: NextRequest) {
   try {
     const { content, session } = await req.json()
 
+    console.log(content, session, 'APIIIIIIIIIIIIII')
+
     const userFound = await db.users.findUnique({
       where: {
         email_address: session?.user?.email

@@ -7,7 +7,7 @@ export const postTweet = async (formData: FormData) => {
   try {
     const session = await getServerSession()
     const content = formData.get('tweet_content')
-    console.log(session, content)
+    console.log(session, content as string)
     await fetch('http://twitter-clone-theta-bay.vercel.app/api/posts', {
       method: 'POST',
       headers: {

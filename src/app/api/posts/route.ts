@@ -28,8 +28,6 @@ export async function GET (req: NextRequest) {
 
 export async function POST (req: NextRequest) {
   try {
-    const datas = req.body
-    console.log(datas)
     const data = await req.json()
 
     console.log(data, 'APIIIIIIIIIIIIII')

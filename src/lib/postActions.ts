@@ -9,7 +9,7 @@ export const postTweet = async (formData: FormData) => {
     const content = formData.get('tweet_content')
     console.log(session, content as string)
 
-    await fetch('http://twitter-clone-theta-bay.vercel.app/api/posts', {
+    const res = await fetch('http://twitter-clone-theta-bay.vercel.app/api/posts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -17,6 +17,7 @@ export const postTweet = async (formData: FormData) => {
       },
       body: JSON.stringify({ session, content })
     })
+    console.log(await res.json())
     revalidateTag('posts')
   } catch (error) {
     console.log(error)

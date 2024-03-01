@@ -1,8 +1,8 @@
+import { redirect } from 'next/navigation'
+import { getServerSession } from 'next-auth'
+import { fetchUserInfo } from '@/lib/getUserSession'
 import InputTweets from '@/components/input-tweets'
 import TweetsList from '@/components/tweet-list'
-import { fetchUserInfo } from '@/lib/getUserSession'
-import { getServerSession } from 'next-auth'
-import { redirect } from 'next/navigation'
 
 const page = async () => {
   const session = await getServerSession()

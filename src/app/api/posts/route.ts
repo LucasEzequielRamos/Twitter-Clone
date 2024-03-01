@@ -28,7 +28,7 @@ export async function GET (req: NextRequest) {
 
 export async function POST (req: NextRequest) {
   try {
-    const data: any = req.body
+    const data = await req.json()
 
     console.log(data, 'APIIIIIIIIIIIIII')
     // if (!data.content || !data.email) {

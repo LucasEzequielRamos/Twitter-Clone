@@ -5,12 +5,12 @@ export async function getOneUser (id: number): Promise<any> {
   const userData = await getServerSession()
   const cookie: string | null = headers().get('cookie')
   const header = new Headers()
-  if (typeof (cookie) === 'string') header.set('Cookie', cookie)
+  if (cookie) header.append('Cookie', cookie)
 
   if (userData !== undefined) {
     const res = await fetch(`https://twitter-clone-theta-bay.vercel.app/api/users/${id}`, {
       method: 'GET',
-      headers: headers()
+      headers: header
     })
 
     const userData = await res.json()

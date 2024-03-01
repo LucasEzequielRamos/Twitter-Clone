@@ -3,11 +3,10 @@
 import { getServerSession } from 'next-auth'
 import { revalidateTag } from 'next/cache'
 
-export const postTweet = async (formData: FormData) => {
+export const postTweet = async (contentTweet: string) => {
   try {
-    const sessión = await getServerSession()
-    const contentTweet = formData.get('tweet_content')
-    const data = { user: sessión?.user, content: contentTweet as string }
+    const session = await getServerSession()
+    const data = { user: session?.user, content: contentTweet }
     console.log(JSON.stringify(data))
     console.log(data, typeof (data), 'CHECK DESDE ACTION')
     const res = await fetch('http://twitter-clone-theta-bay.vercel.app/api/posts', {

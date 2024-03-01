@@ -4,11 +4,17 @@ import { useRef } from 'react'
 
 const InputTweets = ({ profileImage }: { profileImage: string }) => {
   const formRef = useRef<HTMLFormElement>(null)
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const formData = new FormData(event.currentTarget)
+    const content = formData.get('tweet_content') as string
+
+    await postTweet(content)
+    formRef.current?.reset()
+  }
   return (
-    <form ref={formRef} className='flex p-3 gap-1 border-[1px] border-gray-500 relative w-full' action={async (formData) => {
-      await postTweet(formData)
-      formRef.current?.reset()
-    }}>
+    <form ref={formRef} className='flex p-3 gap-1 border-[1px] border-gray-500 relative w-full'onSubmit={handleSubmit} >
       <div className='flex'>
         <picture className='rounded-full size-10 bg-gray-700 object-contain '>
           <img className='rounded-full h-full w-full' src={profileImage} alt="profile user image" />

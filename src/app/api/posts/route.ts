@@ -28,9 +28,11 @@ export async function GET (req: NextRequest) {
 
 export async function POST (req: NextRequest) {
   try {
-    const { content, session } = await req.json()
+    const datas = req.body
+    console.log(datas)
+    const data = await req.json()
 
-    console.log(content, session, 'APIIIIIIIIIIIIII')
+    console.log(data, 'APIIIIIIIIIIIIII')
     if (!content || !session?.user?.email) {
       throw new Error('Contenido del tweet o sesión inválidos')
     }

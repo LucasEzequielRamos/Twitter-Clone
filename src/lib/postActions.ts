@@ -8,10 +8,13 @@ export const postTweet = async (formData: FormData) => {
     const session = await getServerSession()
     const content = formData.get('tweet_content')
     console.log(session, content as string)
+    const contentLength = new TextEncoder().encode(body).length
+
     await fetch('http://twitter-clone-theta-bay.vercel.app/api/posts', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Content-Length': String(contentLength)
       },
       body: JSON.stringify({ session, content })
     })

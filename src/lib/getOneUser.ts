@@ -8,9 +8,9 @@ export async function getOneUser (id: number): Promise<any> {
   if (typeof (cookie) === 'string') header.set('Cookie', cookie)
 
   if (userData !== undefined) {
-    const res = await fetch(`http://twitter-clone-theta-bay.vercel.app/api/users/${id}`, {
+    const res = await fetch(`https://twitter-clone-theta-bay.vercel.app/api/users/${id}`, {
       method: 'GET',
-      headers: header
+      headers: headers()
     })
 
     const userData = await res.json()

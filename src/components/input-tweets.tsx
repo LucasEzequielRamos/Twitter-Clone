@@ -1,5 +1,6 @@
 'use client'
-import { postTweet } from '../lib/postActions'
+import { useSession } from 'next-auth/react'
+// import { postTweet } from '../lib/postActions'
 import { useRef } from 'react'
 
 const InputTweets = ({ profileImage }: { profileImage: string }) => {
@@ -7,12 +8,20 @@ const InputTweets = ({ profileImage }: { profileImage: string }) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
+    const session = useSession()
+    console.log(session)
     const formData = new FormData(event.currentTarget)
-    const content = formData.get('tweet_content') as string
-    console.log(content)
-
-    await postTweet(content)
+    const contentTweet = formData.get('tweet_content') as string
+    console.log(contentTweet)
+    const data = { content: contentTweet, user: session }
+    const res = await fetch('http://twitter-clone-theta-bay.vercel.app/api/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    console.log(await res.json())
     formRef.current?.reset()
   }
   return (

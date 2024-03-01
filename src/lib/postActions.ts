@@ -7,8 +7,6 @@ export const postTweet = async (contentTweet: string) => {
   try {
     const session = await getServerSession()
     const data = { user: session?.user, content: contentTweet }
-    console.log(JSON.stringify(data))
-    console.log(data, typeof (data), 'CHECK DESDE ACTION')
     const res = await fetch('http://twitter-clone-theta-bay.vercel.app/api/posts', {
       method: 'POST',
       headers: {

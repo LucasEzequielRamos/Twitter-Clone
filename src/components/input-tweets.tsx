@@ -4,7 +4,6 @@ import { useRef } from 'react'
 
 const InputTweets = ({ profileImage }: { profileImage: string }) => {
   const formRef = useRef<HTMLFormElement>(null)
-  console.log(profileImage)
   return (
     <form ref={formRef} className='flex p-3 gap-1 border-[1px] border-gray-500 relative w-full' action={async (formData) => {
       await postTweet(formData)

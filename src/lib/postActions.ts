@@ -6,12 +6,13 @@ import { revalidateTag } from 'next/cache'
 export const postTweet = async (contentTweet: string) => {
   try {
     const session = await getServerSession()
-    const data = { user: session?.user, content: contentTweet }
+    const data = { user: session?.user?.email, content: contentTweet }
     const res = await fetch('http://twitter-clone-theta-bay.vercel.app/api/posts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
+      mode: 'cors',
       body: JSON.stringify(data)
     })
     console.log(await res.json())

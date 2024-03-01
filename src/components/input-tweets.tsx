@@ -4,11 +4,13 @@ import { useRef } from 'react'
 
 const InputTweets = ({ profileImage }: { profileImage: string }) => {
   const formRef = useRef<HTMLFormElement>(null)
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const formData = new FormData(event.currentTarget)
     const content = formData.get('tweet_content') as string
+    console.log(content)
 
     await postTweet(content)
     formRef.current?.reset()

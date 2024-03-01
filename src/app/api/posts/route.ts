@@ -33,12 +33,12 @@ export async function POST (req: NextRequest) {
     const data = await req.json()
 
     console.log(data, 'APIIIIIIIIIIIIII')
-    if (!content || !session?.user?.email) {
+    if (!data.content || !data.session?.user?.email) {
       throw new Error('Contenido del tweet o sesión inválidos')
     }
     const userFound = await db.users.findUnique({
       where: {
-        email_address: session?.user?.email
+        email_address: data.session?.user?.email
       }
     })
 
@@ -47,7 +47,7 @@ export async function POST (req: NextRequest) {
     const tweet = await db.tweets.create({
       data: {
         user_id: userFound.id,
-        content
+        content: data.content
       }
     })
 

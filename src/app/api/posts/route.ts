@@ -49,6 +49,7 @@ export async function POST (req: NextRequest) {
       }
     })
 
+    if (!tweet) throw new Error('no se pudo crear el tweet')
     return NextResponse.json({ tweet }, { status: 200 })
   } catch (error: any) {
     console.log(error)

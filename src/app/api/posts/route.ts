@@ -31,12 +31,12 @@ export async function POST (req: NextRequest) {
     const data = await req.json()
 
     console.log(data, 'APIIIIIIIIIIIIII')
-    if (!data.content || !data.session?.user?.email) {
-      throw new Error('Contenido del tweet o sesión inválidos')
-    }
+    // if (!data.content || !data.user?.email) {
+    //   throw new Error('Contenido del tweet o sesión inválidos')
+    // }
     const userFound = await db.users.findUnique({
       where: {
-        email_address: data.session?.user?.email
+        email_address: data.user?.email
       }
     })
 

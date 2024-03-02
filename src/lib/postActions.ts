@@ -2,7 +2,6 @@
 
 import { getServerSession } from 'next-auth'
 import { revalidateTag } from 'next/cache'
-import { headers } from 'next/headers'
 
 export const postTweet = async (contentTweet: string) => {
   try {
@@ -11,7 +10,7 @@ export const postTweet = async (contentTweet: string) => {
     console.log(data, 'from action')
     const res = await fetch('api/posts', {
       method: 'POST',
-      headers: headers(),
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     })
     console.log(await res.json())

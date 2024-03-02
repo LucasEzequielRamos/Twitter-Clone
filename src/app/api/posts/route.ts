@@ -50,7 +50,14 @@ export async function POST (req: NextRequest) {
     })
 
     if (!tweet) throw new Error('no se pudo crear el tweet')
-    return NextResponse.json({ tweet }, { status: 200 })
+    return NextResponse.json({ tweet }, {
+      status: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+      }
+    })
   } catch (error: any) {
     console.log(error)
     return NextResponse.json({

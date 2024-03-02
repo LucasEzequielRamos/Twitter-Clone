@@ -14,6 +14,7 @@ export const postTweet = async (contentTweet: string) => {
       body: JSON.stringify(data)
     })
     console.log(await res.json())
+    revalidateTag('posts')
   } catch (error) {
     console.log(error)
   }

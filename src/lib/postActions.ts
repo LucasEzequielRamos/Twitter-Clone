@@ -23,7 +23,7 @@ export const deleteTweet = async (tweet_id: number, user_id: number, owner: numb
   try {
     if (owner === user_id) {
       const session = await getServerSession()
-      await fetch('http://twitter-clone-theta-bay.vercel.app/api/posts', {
+      await fetch('https://twitter-clone-theta-bay.vercel.app/api/posts', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ export const deleteTweet = async (tweet_id: number, user_id: number, owner: numb
 export const updateTweet = async (tweet_id: number) => {
   try {
     const session = await getServerSession()
-    await fetch('http://twitter-clone-theta-bay.vercel.app/api/likes', {
+    await fetch('https://twitter-clone-theta-bay.vercel.app/api/likes', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -59,7 +59,7 @@ export const updateProfilePhoto = async (formData: FormData) => {
   try {
     const session = await getServerSession()
     const avatar = formData.get('avatar_url')
-    await fetch('http://twitter-clone-theta-bay.vercel.app/api/upload-avatar', {
+    await fetch('https://twitter-clone-theta-bay.vercel.app/api/upload-avatar', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

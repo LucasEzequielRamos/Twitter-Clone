@@ -29,7 +29,6 @@ export async function GET (req: NextRequest) {
 
 export async function POST (req: NextRequest) {
   try {
-    // if (!session) return
     const { content, session } = await req.json()
 
     console.log(content, session)
@@ -55,44 +54,6 @@ export async function POST (req: NextRequest) {
     }, { status: 500 })
   }
 }
-
-// export async function POST (req: NextRequest) {
-//   try {
-//     const session: any = await getServerSession()
-//     console.log(session)
-//     if (!session) return
-//     const data = await req.json()
-
-//     console.log(data, 'APIIIIIIIIIIIIII')
-//     if (!data.content || !session.user.email) {
-//       throw new Error('Contenido del tweet o sesión inválidos')
-//     }
-//     const userFound = await db.users.findUnique({
-//       where: {
-//         email_address: session?.user?.email
-//       }
-//     })
-
-//     if (!userFound) throw new Error('user not found')
-
-//     const tweet = await db.tweets.create({
-//       data: {
-//         user_id: userFound.id,
-//         content: data
-//       }
-//     })
-
-//     if (!tweet) throw new Error('no se pudo crear el tweet')
-//     return NextResponse.json({ tweet }, {
-//       status: 200
-//     })
-//   } catch (error: any) {
-//     console.log(error)
-//     return NextResponse.json({
-//       message: error.message
-//     }, { status: 500 })
-//   }
-// }
 
 export async function DELETE (req: NextRequest) {
   try {

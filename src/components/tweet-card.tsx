@@ -14,7 +14,6 @@ interface tweet {
 }
 
 const TweetCard = ({ user, tweet, userSession }: { user: any, tweet: tweet, userSession: any }) => {
-  console.log(tweet.user_id, userSession.id)
   const paintHeart = userSession.likes?.find((like: any) => like.tweet_id === tweet.tweet_id)
   return (
     <article className=' border-x-[1px] border-b-[1px] w-full border-gray-500'>

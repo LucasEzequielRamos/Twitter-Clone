@@ -54,21 +54,3 @@ export const updateTweet = async (tweet_id: number) => {
     console.log(error)
   }
 }
-
-export const updateProfilePhoto = async (formData: FormData) => {
-  try {
-    const session = await getServerSession()
-    const avatar = formData.get('avatar_url')
-    await fetch('https://twitter-clone-theta-bay.vercel.app/api/upload-avatar', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ avatar, session })
-    })
-    revalidateTag('users')
-    return false
-  } catch (error) {
-    console.log(error)
-  }
-}

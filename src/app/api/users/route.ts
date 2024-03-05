@@ -4,7 +4,6 @@ import db from '@/utils/db'
 import { authOptions } from '../../../utils/auth-options'
 import { processImage } from '@/lib/processImage'
 import cloudinary from '@/utils/cloudinary'
-import { type UploadApiResponse } from 'cloudinary'
 
 export async function GET (req: Request) {
   try {
@@ -33,10 +32,6 @@ export async function GET (req: Request) {
   }
 }
 
-interface res {
-  secure_url: string
-}
-
 export async function PUT (req: NextRequest) {
   try {
     const session: any = await nextAuthGetServerSession(authOptions)
@@ -45,9 +40,14 @@ export async function PUT (req: NextRequest) {
     const data = await req.formData()
     const image = data.get('image')
 
+    console.log(data, ' formdata desde el route')
+    console.log(image, 'image desde el route')
+
     const buffer = image && await processImage(image)
 
-    const res: res | UploadApiResponse | undefined = await new Promise((resolve, reject) => {
+    console.log(buffer, ' buffer desde el route')
+
+    const res: any = await new Promise((resolve, reject) => {
       cloudinary.uploader.upload_stream({ resource_type: 'image' },
         async (err, result) => {
           if (err) {
@@ -66,6 +66,8 @@ export async function PUT (req: NextRequest) {
       }
     })
     if (userFound === null) return
+
+    console.log(userFound, 'user found desde el route')
 
     const userNick = data.get('user_nick')?.toString()
     const userNickOrDefault = userNick !== 'undefined' ? userNick : userFound.user_nick
@@ -90,6 +92,8 @@ export async function PUT (req: NextRequest) {
       full_name: fullNameOrDefault,
       birthday: birthdayOrDefault
     }
+
+    console.log(dataToEdit, 'data to edit desde el router')
 
     if (!dataToEdit) return
     await db.users.updateMany({

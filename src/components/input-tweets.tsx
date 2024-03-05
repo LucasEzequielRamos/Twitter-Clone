@@ -5,22 +5,7 @@ import { useRef } from 'react'
 
 const InputTweets = ({ profileImage, session }: { profileImage: string, session: any }) => {
   const formRef = useRef<HTMLFormElement>(null)
-  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault()
 
-  //   const formData = new FormData(event.currentTarget)
-  //   const content = formData.get('tweet_content')
-
-  //   if (!content) return
-  //   await fetch('/api/posts', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(content)
-  //   })
-  //   formRef.current?.reset()
-  // }
   return (
     <form ref={formRef} className='flex p-3 gap-1 border-[1px] border-gray-500 relative w-full' action={async (formData) => {
       await postTweet(formData, session)

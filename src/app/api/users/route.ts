@@ -40,12 +40,7 @@ export async function PUT (req: NextRequest) {
     const data = await req.formData()
     const image = data.get('image')
 
-    console.log(data, ' formdata desde el route')
-    console.log(image, 'image desde el route')
-
     const buffer = image && await processImage(image)
-
-    console.log(buffer, ' buffer desde el route')
 
     const res: any = await new Promise((resolve, reject) => {
       cloudinary.uploader.upload_stream({ resource_type: 'image' },
@@ -59,7 +54,9 @@ export async function PUT (req: NextRequest) {
         })
         .end(buffer)
     })
+    console.log(res, 'res cloudinary upload')
 
+    console.log(session, 'session desde el route')
     const userFound = await db.users.findUnique({
       where: {
         email_address: session.user.email

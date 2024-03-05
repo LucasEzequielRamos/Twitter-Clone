@@ -27,9 +27,6 @@ const EditProfileModal = () => {
     formData.append('full_name', profile.full_name)
     if (file) formData.append('image', file)
 
-    console.log(formData, 'formdata desde el handler')
-    console.log(file, 'file desde el handler')
-
     await fetch('/api/users', {
       method: 'PUT',
       body: formData

@@ -7,6 +7,7 @@ const TweetsList = async ({ userId, page }: { userId: number | null, page: strin
   const tweets = await getTweets()
   const myTweets = page && await getProfileTweets(userId)
   const user = await fetchUserInfo()
+  console.log(user)
   return (
     page === undefined
       ? <div className='w-full'> { tweets.length > 0 ? tweets.map((tweet: any) => { return <TweetCard key={tweet.tweet_id} user={tweet.user} tweet={tweet} userSession={user} /> }) : 'no hay tweets'}</div>

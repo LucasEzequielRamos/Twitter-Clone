@@ -10,7 +10,7 @@ const page = async () => {
   const { avatar_url } = await fetchUserInfo()
   return (
     <section className="lg:w-[600px] m-auto flex flex-col">
-      <InputTweets profileImage={avatar_url} />
+      <InputTweets profileImage={avatar_url} session={session} />
       <TweetsList page={undefined} userId={null}/>
     </section>
   )

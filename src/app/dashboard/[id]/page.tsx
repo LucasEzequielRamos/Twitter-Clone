@@ -9,6 +9,7 @@ const Dashboard = async ({ params }: { params: { id: number } }) => {
   const user = await fetchUserInfo()
   const session = await getServerSession()
   if (!session) redirect('/auth/login')
+  console.log(session, 'session desde dashboard page')
 
   return (
     <section className='lg:w-[600px] m-auto flex flex-col'>

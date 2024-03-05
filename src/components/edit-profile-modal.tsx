@@ -20,6 +20,7 @@ const EditProfileModal = ({ email }: { email: any }) => {
     e.preventDefault()
     if (Object.keys(profile).length === 0 && !file) return
     const formData = new FormData()
+    console.log(email, 'email desde handler')
     formData.append('email', email)
     formData.append('user_nick', profile.user_nick)
     formData.append('phonenumber', profile.phonenumber)

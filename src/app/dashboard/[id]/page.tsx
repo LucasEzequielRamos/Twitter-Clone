@@ -12,7 +12,7 @@ const Dashboard = async ({ params }: { params: { id: number } }) => {
 
   return (
     <section className='lg:w-[600px] m-auto flex flex-col'>
-      <ProfileHeader profileId={Number(id)} userSessionId={user.id}/>
+      <ProfileHeader profileId={Number(id)} userEmail={session.user?.email} userSessionId={user.id}/>
       <main className='flex justify-center items-center flex-col'>
         <TweetsList userId={Number(id)} page={'dashboard'}/>
       </main>

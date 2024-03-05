@@ -7,7 +7,6 @@ import cloudinary from '@/utils/cloudinary'
 
 export async function GET (req: Request) {
   try {
-    console.log(req.headers.get('Cookie'))
     const session: any = await nextAuthGetServerSession(authOptions)
     if (!session) throw new Error('session not found')
 
@@ -34,11 +33,10 @@ export async function GET (req: Request) {
 
 export async function PUT (req: NextRequest) {
   try {
-    const session: any = await nextAuthGetServerSession(authOptions)
-    if (!session) throw new Error('session not found')
-
     const data = await req.formData()
     const image = data.get('image')
+    const email: any = data.get('email')
+    console.log(email)
 
     const buffer = image && await processImage(image)
 
@@ -56,10 +54,9 @@ export async function PUT (req: NextRequest) {
     })
     console.log(res, 'res cloudinary upload')
 
-    console.log(session, 'session desde el route')
     const userFound = await db.users.findUnique({
       where: {
-        email_address: session.user.email
+        email_address: email
       }
     })
     if (userFound === null) return
@@ -95,7 +92,7 @@ export async function PUT (req: NextRequest) {
     if (!dataToEdit) return
     await db.users.updateMany({
       where: {
-        email_address: session?.user?.email
+        email_address: email
       },
       data: {
         user_nick: dataToEdit.user_nick,

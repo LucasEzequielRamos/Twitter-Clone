@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation'
 import { useRef, useState } from 'react'
 
-const EditProfileModal = () => {
+const EditProfileModal = ({ email }: { email: any }) => {
   const [openModal, setOpenModal] = useState(false)
   const [profile, setProfile] = useState<any>({})
   const [file, setFile] = useState<File | null | undefined>(null)
@@ -20,6 +20,7 @@ const EditProfileModal = () => {
     e.preventDefault()
     if (Object.keys(profile).length === 0 && !file) return
     const formData = new FormData()
+    formData.append('email', email)
     formData.append('user_nick', profile.user_nick)
     formData.append('phonenumber', profile.phonenumber)
     formData.append('description', profile.description)

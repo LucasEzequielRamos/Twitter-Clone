@@ -3,7 +3,7 @@ import EditProfileModal from './edit-profile-modal'
 import ButtonToFollow from './follow-button'
 import { getOneUser } from '@/lib/getOneUser'
 
-const ProfileHeader = async ({ profileId, userSessionId }: { profileId: number, userSessionId: number }) => {
+const ProfileHeader = async ({ profileId, userSessionId, userEmail }: { profileId: number, userSessionId: number, userEmail: string | null | undefined }) => {
   const user = await getOneUser(profileId)
 
   if (user.birthday) {
@@ -30,7 +30,7 @@ const ProfileHeader = async ({ profileId, userSessionId }: { profileId: number, 
             </picture>
             {
               profileId === userSessionId
-                ? <EditProfileModal/>
+                ? <EditProfileModal email={userEmail}/>
                 : <ButtonToFollow/>
             }
           </div>

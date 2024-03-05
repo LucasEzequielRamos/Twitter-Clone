@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import db from '@/utils/db'
-import { getServerSession } from 'next-auth'
+// import { getServerSession } from 'next-auth'
 
 export async function GET (req: NextRequest) {
   try {

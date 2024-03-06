@@ -37,21 +37,11 @@ export async function PUT (req: NextRequest) {
     const image = data.get('image')
     const email: any = data.get('email')
 
-    const buffer = image && await processImage(image)
+    const buffer: any = image && await processImage(image)
 
     console.log(email, 'desde route')
-    const res: any = await new Promise((resolve, reject) => {
-      cloudinary.uploader.upload_stream({ resource_type: 'image' },
-        async (err, result) => {
-          if (err) {
-            console.log(err)
-            reject(err)
-          }
+    const res: any = await cloudinary.uploader.upload(buffer, { resource_type: 'image' })
 
-          resolve(result)
-        })
-        .end(buffer)
-    })
     console.log(email, 'desde route2')
 
     console.log(res, 'res cloudinary upload')

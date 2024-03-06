@@ -2,7 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { getServerSession as nextAuthGetServerSession } from 'next-auth'
 import db from '@/utils/db'
 import { authOptions } from '../../../utils/auth-options'
-import { processImage } from '@/lib/processImage'
+// import { processImage } from '@/lib/processImage'
 import cloudinary from '@/utils/cloudinary'
 
 export async function GET (req: Request) {
@@ -34,10 +34,11 @@ export async function GET (req: Request) {
 export async function PUT (req: NextRequest) {
   try {
     const data = await req.formData()
-    const image = data.get('image')
+    const image: any = data.get('image')
     const email: any = data.get('email')
 
-    const buffer: any = image && await processImage(image)
+    const bytes = await image?.arrayBuffer()
+    const buffer = image && Buffer.from(bytes)
 
     const userFound = await db.users.findUnique({
       where: {
@@ -48,11 +49,19 @@ export async function PUT (req: NextRequest) {
 
     console.log(userFound, 'user found desde el route')
 
-    const res: any = await cloudinary.uploader.upload(buffer, { resource_type: 'image' })
-
-    console.log(email, 'desde route2')
+    const res: any = await new Promise((resolve, reject) => {
+      cloudinary.uploader.upload_stream({}, (err, result) => {
+        if (err) {
+          reject(err)
+        }
+        resolve(result)
+      })
+        .end(buffer)
+    })
 
     console.log(res, 'res cloudinary upload')
+
+    console.log(email, 'desde route2')
 
     const userNick = data.get('user_nick')?.toString()
     const userNickOrDefault = userNick !== 'undefined' ? userNick : userFound.user_nick

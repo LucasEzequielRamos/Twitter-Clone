@@ -26,7 +26,7 @@ const Form = () => {
   }
 
   return (
-    <section className='h-screen w-screen flex justify-center items-center'>
+    <section className='h-screen  flex justify-center items-center'>
       <div className='flex flex-col gap-7 bg-slate-700 py-4 px-8 mx-2 rounded-lg  items-center'>
         <h2 className='text-2xl'>Sign in your account in Twitter Clone</h2>
         <form onSubmit={handleSubmit} className='w-full flex flex-col gap-4 [&>input]:p-1 [&>input]:w-4/5 items-center'>

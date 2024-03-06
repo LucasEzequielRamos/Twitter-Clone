@@ -1,4 +1,9 @@
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
+
 const page = async () => {
+  const session = await getServerSession()
+  if (session) redirect('/home')
   return (
     <section className="lg:w-[600px] w-full m-auto flex flex-col">
       <div className="flex flex-col mx-auto lg:mt-64 mt-20">

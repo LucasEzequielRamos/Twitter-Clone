@@ -5,6 +5,15 @@ import { authOptions } from '../../../utils/auth-options'
 // import { processImage } from '@/lib/processImage'
 // import cloudinary from '@/utils/cloudinary'
 
+import { v2 as cloudinary } from 'cloudinary'
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true
+})
+
 export async function GET (req: Request) {
   try {
     const session: any = await nextAuthGetServerSession(authOptions)
@@ -34,14 +43,17 @@ export async function GET (req: Request) {
 export async function PUT (req: NextRequest) {
   try {
     const data = await req.formData()
-    const image: any = data.get('image')
+    const image: any = data.get('image') as File
     const email: any = data.get('email')
 
     console.log(image, 'image from route')
     const bytes = await image?.arrayBuffer()
-    const buffer = image && Buffer.from(bytes)
+    const mime = image.type
+    const encoding = 'base64'
+    const base64Data = Buffer.from(bytes).toString('base64')
+    const fileUri = 'data:' + mime + ';' + encoding + ',' + base64Data
 
-    console.log(buffer, 'buffer from route')
+    console.log(fileUri, 'buffer from route')
 
     const userFound = await db.users.findUnique({
       where: {
@@ -52,18 +64,26 @@ export async function PUT (req: NextRequest) {
 
     console.log(userFound, 'user found desde el route')
 
-    // const res: any = await new Promise((resolve, reject) => {
-    //   cloudinary.uploader.upload_stream({}, (err, result) => {
-    //     if (err) {
-    //       console.log(err)
-    //       reject(err)
-    //     }
-    //     resolve(result)
-    //   })
-    //     .end(buffer)
-    // })
+    const uploadToCloudinary = async () => {
+      return await new Promise((resolve, reject) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const result = cloudinary.uploader.upload(fileUri, {
+          invalidate: true
+        })
+          .then((result) => {
+            console.log(result)
+            resolve(result)
+          })
+          .catch((error) => {
+            console.log(error)
+            reject(error)
+          })
+      })
+    }
 
-    // console.log(res, 'res cloudinary upload')
+    const result = await uploadToCloudinary()
+
+    console.log(result, 'res cloudinary upload')
 
     console.log(email, 'desde route2')
 

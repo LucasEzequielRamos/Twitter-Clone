@@ -81,11 +81,7 @@ export async function PUT (req: NextRequest) {
       })
     }
 
-    const result = await uploadToCloudinary()
-
-    console.log(result, 'res cloudinary upload')
-
-    console.log(email, 'desde route2')
+    const res: any = await uploadToCloudinary()
 
     const userNick = data.get('user_nick')?.toString()
     const userNickOrDefault = userNick !== 'undefined' ? userNick : userFound.user_nick
@@ -105,7 +101,7 @@ export async function PUT (req: NextRequest) {
     const dataToEdit = {
       user_nick: userNickOrDefault,
       phonenumber: phoneNumberOrDefault,
-      // avatar_url: res?.secure_url ? res.secure_url : userFound.avatar_url,
+      avatar_url: res?.secure_url ? res.secure_url : userFound.avatar_url,
       description: descriptionOrDefault,
       full_name: fullNameOrDefault,
       birthday: birthdayOrDefault
@@ -121,7 +117,7 @@ export async function PUT (req: NextRequest) {
       data: {
         user_nick: dataToEdit.user_nick,
         phonenumber: dataToEdit.phonenumber,
-        // avatar_url: dataToEdit.avatar_url,
+        avatar_url: dataToEdit.avatar_url,
         description: dataToEdit.description,
         full_name: dataToEdit.full_name,
         birthday: dataToEdit.birthday

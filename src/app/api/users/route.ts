@@ -39,23 +39,20 @@ export async function PUT (req: NextRequest) {
 
     const buffer: any = image && await processImage(image)
 
-    console.log(email, 'desde route')
-    const res: any = await cloudinary.uploader.upload(buffer, { resource_type: 'image' })
-
-    console.log(email, 'desde route2')
-
-    console.log(res, 'res cloudinary upload')
-
-    console.log(email, 'desde route3')
-
     const userFound = await db.users.findUnique({
       where: {
         email_address: email
       }
     })
-    if (userFound === null) return
+    if (userFound === null) throw new Error('user not found')
 
     console.log(userFound, 'user found desde el route')
+
+    const res: any = await cloudinary.uploader.upload(buffer, { resource_type: 'image' })
+
+    console.log(email, 'desde route2')
+
+    console.log(res, 'res cloudinary upload')
 
     const userNick = data.get('user_nick')?.toString()
     const userNickOrDefault = userNick !== 'undefined' ? userNick : userFound.user_nick

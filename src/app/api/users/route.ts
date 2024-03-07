@@ -107,11 +107,13 @@ export async function PUT (req: NextRequest) {
     const dataToEdit = {
       user_nick: userNickOrDefault,
       phonenumber: phoneNumberOrDefault,
-      avatar_url: res.secure_url !== undefined ? res.secure_url : userFound.avatar_url,
+      avatar_url: res !== undefined ? res.secure_url : userFound.avatar_url,
       description: descriptionOrDefault,
       full_name: fullNameOrDefault,
       birthday: birthdayOrDefault
     }
+
+    console.log(dataToEdit, 'dataToEdit')
 
     if (!dataToEdit) return
     await db.users.updateMany({

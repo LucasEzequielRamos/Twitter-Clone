@@ -46,15 +46,19 @@ export async function PUT (req: NextRequest) {
     const image: any = data.get('image') as File
     const email: any = data.get('email')
 
-    const bytes = await image?.arrayBuffer()
-    const mime = image?.type
-    const encoding = 'base64'
-    const base64Data = Buffer.from(bytes).toString('base64')
-    const fileUri = image && 'data:' + mime + ';' + encoding + ',' + base64Data
+    let fileUri: string | undefined | any
+    if (image) {
+      const bytes = await image.arrayBuffer()
+      const mime = image.type
+      console.log(mime, 'mime from route')
 
-    console.log(mime, 'mime from route')
-    console.log(base64Data, ' base64data from route')
-    console.log(fileUri, 'buffer from route')
+      const encoding = 'base64'
+      const base64Data = Buffer.from(bytes).toString('base64')
+      console.log(base64Data, ' base64data from route')
+
+      fileUri = 'data:' + mime + ';' + encoding + ',' + base64Data
+      console.log(fileUri, 'buffer from route')
+    }
 
     const userFound = await db.users.findUnique({
       where: {
@@ -64,7 +68,7 @@ export async function PUT (req: NextRequest) {
     if (userFound === null) throw new Error('user not found')
 
     const uploadToCloudinary: any = async () => {
-      if (image) {
+      if (fileUri) {
         return await new Promise((resolve, reject) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const result = cloudinary.uploader.upload(fileUri, {
@@ -79,7 +83,7 @@ export async function PUT (req: NextRequest) {
               reject(error)
             })
         })
-      }
+      } else return undefined
     }
 
     const res: any = await uploadToCloudinary()
@@ -103,7 +107,7 @@ export async function PUT (req: NextRequest) {
     const dataToEdit = {
       user_nick: userNickOrDefault,
       phonenumber: phoneNumberOrDefault,
-      avatar_url: res?.secure_url ? res.secure_url : userFound.avatar_url,
+      avatar_url: res.secure_url !== undefined ? res.secure_url : userFound.avatar_url,
       description: descriptionOrDefault,
       full_name: fullNameOrDefault,
       birthday: birthdayOrDefault

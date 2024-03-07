@@ -43,14 +43,14 @@ const EditProfileModal = ({ email }: { email: any }) => {
   return (
     openModal
       ? <div className='absolute flex justify-center items-center'>
-        <form ref={form} onSubmit={handleSubmit} className=' relative z-30  flex w-[565px] flex-col gap-4 [&>input]:rounded-lg [&>input]:text-black [&>label]:flex [&>label]:flex-col [&>input]:px-2 [&>input]:outline-none bg-blue-950 p-4'>
+        <form ref={form} onSubmit={handleSubmit} className=' relative z-30  flex w-[390px] lg:w-[565px] flex-col gap-4 [&>input]:rounded-lg [&>input]:text-black [&>label]:flex [&>label]:flex-col [&>input]:px-2 [&>input]:outline-none bg-blue-950 p-4'>
           <div className='flex justify-end'>
             <button className='size-6 rounded-sm bg-red-600' onClick={() => {
               setProfile(null)
               setOpenModal(false)
             }}>X</button>
           </div>
-          <div className='flex [&>label]:w-1/2 [&>label>input]:px-2 [&>label>input]:w-11/12'>
+          <div className='flex [&>label]:w-1/2  [&>label]:text-sm [&>label]:lg:text-base [&>label>input]:px-2 [&>label>input]:w-11/12'>
             <label htmlFor="">
             Edit your nickname
               <input name='user_nick' type="text" onChange={handleChange} />
@@ -60,13 +60,13 @@ const EditProfileModal = ({ email }: { email: any }) => {
               <input name='phonenumber' type="number" onChange={handleChange} />
             </label>
           </div>
-          <div className=''>
+          <div className='[&>label]:text-sm [&>label]:lg:text-base'>
             <label className='flex flex-col' htmlFor="">
             Edit your description profile
               <textarea className='text-black' rows={5} name='description' onChange={handleChange}/>
             </label>
           </div>
-          <div className='flex [&>label]:w-1/2 [&>label>input]:px-2 [&>label>input]:w-11/12'>
+          <div className='flex [&>label]:w-1/2 [&>label>input]:px-2 [&>label>input]:w-11/12 [&>label]:text-sm [&>label]:lg:text-base'>
             <label htmlFor="">
             Edit your name
               <input name='full_name' type="text" onChange={handleChange}/>

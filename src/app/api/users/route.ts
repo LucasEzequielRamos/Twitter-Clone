@@ -46,13 +46,14 @@ export async function PUT (req: NextRequest) {
     const image: any = data.get('image') as File
     const email: any = data.get('email')
 
-    console.log(image, 'image from route')
     const bytes = await image?.arrayBuffer()
-    const mime = image.type
+    const mime = image?.type
     const encoding = 'base64'
     const base64Data = Buffer.from(bytes).toString('base64')
-    const fileUri = 'data:' + mime + ';' + encoding + ',' + base64Data
+    const fileUri = image && 'data:' + mime + ';' + encoding + ',' + base64Data
 
+    console.log(mime, 'mime from route')
+    console.log(base64Data, ' base64data from route')
     console.log(fileUri, 'buffer from route')
 
     const userFound = await db.users.findUnique({
@@ -62,41 +63,42 @@ export async function PUT (req: NextRequest) {
     })
     if (userFound === null) throw new Error('user not found')
 
-    console.log(userFound, 'user found desde el route')
-
-    const uploadToCloudinary = async () => {
-      return await new Promise((resolve, reject) => {
+    const uploadToCloudinary: any = async () => {
+      if (image) {
+        return await new Promise((resolve, reject) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const result = cloudinary.uploader.upload(fileUri, {
-          invalidate: true
+          const result = cloudinary.uploader.upload(fileUri, {
+            invalidate: true
+          })
+            .then((result) => {
+              console.log(result)
+              resolve(result)
+            })
+            .catch((error) => {
+              console.log(error)
+              reject(error)
+            })
         })
-          .then((result) => {
-            console.log(result)
-            resolve(result)
-          })
-          .catch((error) => {
-            console.log(error)
-            reject(error)
-          })
-      })
+      }
     }
 
     const res: any = await uploadToCloudinary()
+    console.log(res, ' uploaded to cloudinary')
 
     const userNick = data.get('user_nick')?.toString()
-    const userNickOrDefault = userNick !== 'undefined' ? userNick : userFound.user_nick
+    const userNickOrDefault = userNick === 'undefined' || !userNick ? userFound.user_nick : userNick
 
     const phoneNumber = data.get('phonenumber')?.toString()
-    const phoneNumberOrDefault = phoneNumber !== 'undefined' ? phoneNumber : userFound.phonenumber
+    const phoneNumberOrDefault = phoneNumber === 'undefined' || !phoneNumber ? userFound.phonenumber : phoneNumber
 
     const description = data.get('description')?.toString()
-    const descriptionOrDefault = description !== 'undefined' ? description : userFound.description
+    const descriptionOrDefault = description === 'undefined' || !description ? userFound.description : description
 
     const fullName = data.get('full_name')?.toString()
-    const fullNameOrDefault = fullName !== 'undefined' ? fullName : userFound.full_name
+    const fullNameOrDefault = fullName === 'undefined' || !fullName ? userFound.full_name : fullName
 
     const birthday = data.get('birthday')?.toString()
-    const birthdayOrDefault = birthday !== 'undefined' ? birthday : userFound.birthday
+    const birthdayOrDefault = birthday === 'undefined' || !birthday ? userFound.birthday : birthday
 
     const dataToEdit = {
       user_nick: userNickOrDefault,
@@ -106,8 +108,6 @@ export async function PUT (req: NextRequest) {
       full_name: fullNameOrDefault,
       birthday: birthdayOrDefault
     }
-
-    console.log(dataToEdit, 'data to edit desde el router')
 
     if (!dataToEdit) return
     await db.users.updateMany({

@@ -10,17 +10,27 @@ This project was to reinforce some bases and learn new technologies. It is a clo
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/LucasEzequielBecerra/Book-Library.git
+$ git clone https://github.com/LucasEzequielBecerra/Twitter-Clone.git
  
 OR
 
 #Download ZIP
 
 # Go into the repository
-$ cd Book-Library
+$ cd Twitter-Clone
 
 # Install dependencies
 $ npm install
+
+#You will need the following environment variables:
+DATABASE_URL
+JWT_SECRET
+CLOUDINARY_CLOUD_NAME
+CLOUDINARY_API_KEY
+CLOUDINARY_API_SECRET
+NEXTAUTH_URL
+NEXT_PUBLIC_DISABLE_PRELOAD=true
+NEXTAUTH_SECRET
 
 # Run the app
 $ npm run dev
@@ -29,4 +39,4 @@ $ npm run dev
 
 ## Deployment
 
-[Deploy](https://book-library-pearl.vercel.app/)
+[Deploy](https://twitter-clone-theta-bay.vercel.app/)

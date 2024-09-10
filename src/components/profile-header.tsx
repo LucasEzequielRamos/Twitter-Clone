@@ -5,6 +5,7 @@ import { getOneUser } from '@/lib/getOneUser'
 
 const ProfileHeader = async ({ profileId, userSessionId, userEmail }: { profileId: number, userSessionId: number, userEmail: string | null | undefined }) => {
   const user = await getOneUser(profileId)
+  console.log(user)
 
   if (user.birthday) {
     const [year, month, day] = user?.birthday?.split('-')

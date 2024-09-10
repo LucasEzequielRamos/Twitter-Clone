@@ -24,9 +24,10 @@
       "@typescript-eslint/await-thenable": "off",
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/strict-boolean-expressions": "off",
-      "indent": ["error", 2],
+      "indent": ["error", 4],
       "@typescript-eslint/naming-convention":"off",
       "@typescript-eslint/no-unsafe-argument":"off",
-      "react/prop-types": "off"
+      "react/prop-types": "off",
+      
   }
 }

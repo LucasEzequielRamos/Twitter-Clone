@@ -6,7 +6,7 @@ import { revalidateTag } from 'next/cache'
 export const postTweet = async (formData: FormData, session: any) => {
   try {
     const content = formData.get('tweet_content')
-    await fetch('https://twitter-clone-theta-bay.vercel.app/api/posts', {
+    await fetch('http://localhost:3000/api/posts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -23,7 +23,7 @@ export const deleteTweet = async (tweet_id: number, user_id: number, owner: numb
   try {
     if (owner === user_id) {
       const session = await getServerSession()
-      await fetch('https://twitter-clone-theta-bay.vercel.app/api/posts', {
+      await fetch('http://localhost:3000/api/posts', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ export const deleteTweet = async (tweet_id: number, user_id: number, owner: numb
 export const updateTweet = async (tweet_id: number) => {
   try {
     const session = await getServerSession()
-    await fetch('https://twitter-clone-theta-bay.vercel.app/api/likes', {
+    await fetch('http://localhost:3000/api/likes', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

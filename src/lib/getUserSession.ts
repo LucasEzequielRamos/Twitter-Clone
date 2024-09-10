@@ -9,7 +9,7 @@ export async function fetchUserInfo (): Promise<any> {
     const header = new Headers()
     if (cookie) header.append('Cookie', cookie)
     if (userData !== undefined) {
-      const res = await fetch('https://twitter-clone-theta-bay.vercel.app/api/users', {
+      const res = await fetch('http://localhost:3000/api/users', {
         method: 'GET',
         headers: header
       })

@@ -16,7 +16,7 @@ const Navbar = () => {
             <Link href={'/auth/register'}>Register</Link>
           </div>
           : <div>
-            <button onClick={async () => { await signOut() }}>Sign out</button>
+            <button onClick={async () => { await signOut({callbackUrl: '/'}) }}>Sign out</button>
           </div>
         }
       </nav>

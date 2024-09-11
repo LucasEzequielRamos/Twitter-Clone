@@ -13,12 +13,12 @@ datasource db {
 
 model Users {
   id Int @id  @default(autoincrement())
-  user_nick String @unique @db.VarChar(20)
+  user_nick String? @unique @db.VarChar(20)
   email_address String @unique(map: "email") @db.VarChar(255)
-  full_name String @db.VarChar(255)
+  full_name String? @db.VarChar(255)
   phonenumber String? @db.Char(15)
   created_at DateTime  @default(now()) @db.Timestamp(0)
-  password String? @db.VarChar(255)
+  password String @db.VarChar(255)
   avatar_url String? @db.VarChar(255)
   description String? @db.VarChar(255)
   birthday String? @db.VarChar(255)

@@ -1,6 +1,6 @@
 export async function getTweets (): Promise<any> {
   try {
-    const res = await fetch('http://localhost:3000/api/posts')
+    const res = await fetch(`${process.env.NEXTAUTH_URL}api/posts`)
     if (res.status === 200) {
       const tweets = await res.json()
       return tweets

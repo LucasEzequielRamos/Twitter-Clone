@@ -5,12 +5,14 @@ import { getOneUser } from '@/lib/getOneUser'
 
 const ProfileHeader = async ({ profileId, userSessionId, userEmail }: { profileId: number, userSessionId: number, userEmail: string | null | undefined }) => {
   const user = await getOneUser(profileId)
-  console.log(user)
+
+  let birthday;
 
   if (user.birthday) {
     const [year, month, day] = user?.birthday?.split('-')
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    const birthday = `${parseInt(day, 10)} de ${months[parseInt(month, 10) - 1]} de ${year}`
+    birthday = `${parseInt(day, 10)} de ${months[parseInt(month, 10) - 1]} de ${year}`
+  }
 
     return (
       <header className='border-x-[1px] border-gray-500  w-full'>
@@ -68,6 +70,6 @@ const ProfileHeader = async ({ profileId, userSessionId, userEmail }: { profileI
       </header>
     )
   }
-}
+
 
 export default ProfileHeader

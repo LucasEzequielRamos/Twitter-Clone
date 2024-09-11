@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs'
 export async function POST (req: NextRequest) {
   try {
     const data = await req.json()
+    console.log(data)
 
     const userFound = await db.users.findUnique({
       where: {
@@ -21,7 +22,8 @@ export async function POST (req: NextRequest) {
     const newUser = await db.users.create({
       data: {
         ...data,
-        password: hashedPass
+        password: hashedPass,
+        user_nick: data.full_name.split(' ')[0] + Math.floor(1000 + Math.random() * 9000)
       }
     })
 

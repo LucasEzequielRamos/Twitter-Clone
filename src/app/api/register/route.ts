@@ -5,7 +5,6 @@ import bcrypt from 'bcryptjs'
 export async function POST (req: NextRequest) {
   try {
     const data = await req.json()
-    console.log(data)
 
     const userFound = await db.users.findUnique({
       where: {

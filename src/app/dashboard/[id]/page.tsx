@@ -6,8 +6,8 @@ import { fetchUserInfo } from '@/lib/getUserSession'
 
 const Dashboard = async ({ params }: { params: { id: number } }) => {
   const { id } = params
-  const user = await fetchUserInfo()
-  const session = await getServerSession()
+  const [user, session] = await Promise.all([fetchUserInfo(), getServerSession()])
+  
   if (!session) redirect('/auth/login')
 
   return (

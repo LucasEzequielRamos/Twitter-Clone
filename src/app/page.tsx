@@ -3,7 +3,6 @@ import { redirect } from 'next/navigation'
 
 const page = async () => {
   const session = await getServerSession()
-  console.log(session, 'aqui veo desde root')
   if (session) redirect('/home')
   return (
     <section className="lg:w-[600px] w-full m-auto flex flex-col">

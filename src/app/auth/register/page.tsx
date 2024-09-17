@@ -4,7 +4,6 @@ import { redirect } from 'next/navigation'
 
 const RegisterPage = async () => {
   const session = await getServerSession()
-  console.log(session)
   if (session) {
     redirect('/home')
   }

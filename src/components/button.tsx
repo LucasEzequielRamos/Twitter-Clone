@@ -1,8 +1,6 @@
-import React from 'react'
-
-const Button = ({ white }) => {
+const Button: React.FC<{ color?: string, text: string }> = ({ color = 'white', text }) => {
   return (
-    <button className='bg-white'>Button</button>
+    <button className={`bg-${color}`}>{text}</button>
   )
 }
 

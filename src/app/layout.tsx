@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '../components/navbar'
+import Footer from '../components/footer'
 import { getServerSession } from 'next-auth'
 import SessionProvider from '../utils/session-providers'
 
@@ -23,10 +24,10 @@ export default async function RootLayout ({
     <html lang="en">
       <body className={inter.className}>
         <SessionProvider session={session}>
-          <Navbar/>
           <div className='lg:w-[1000px] lg:mx-auto'>
             {children}
           </div>
+          <Footer/>
         </SessionProvider>
       </body>
     </html>

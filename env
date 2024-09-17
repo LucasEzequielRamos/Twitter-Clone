@@ -1,0 +1,7 @@
+DATABASE_URL="postgres://postgres.yizmgzzligmvqgprvyxl:Lucasbecerra.123@aws-0-sa-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
+DIRECT_URL="postgres://postgres.yizmgzzligmvqgprvyxl:Lucasbecerra.123@aws-0-sa-east-1.pooler.supabase.com:5432/postgres"
+
+JWT_SECRET='pOOLJrtuDPrg04nLJd+3Bimd92pWmXIVoyQ/yQE4/D8='
+CLOUDINARY_CLOUD_NAME= 'dcapuntyt'
+CLOUDINARY_API_KEY='369322988379227'
+CLOUDINARY_API_SECRET='KKrXdw-CvD5Ycr-3cHiEFNsclWk'   

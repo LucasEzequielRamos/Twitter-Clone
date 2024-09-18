@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '../components/navbar'
+import Footer from '../components/footer'
 import { getServerSession } from 'next-auth'
 import SessionProvider from '../utils/session-providers'
 
@@ -18,6 +19,7 @@ export default async function RootLayout ({
   children: React.ReactNode
 }) {
   const session = await getServerSession()
+  // console.log(session)
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -26,6 +28,7 @@ export default async function RootLayout ({
           <div className='lg:w-[1000px] lg:mx-auto'>
             {children}
           </div>
+          <Footer/>
         </SessionProvider>
       </body>
     </html>

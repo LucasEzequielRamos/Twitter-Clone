@@ -20,6 +20,7 @@ const Form = () => {
       ...user,
       [e.currentTarget.name]: e.currentTarget.value
     })
+    console.log(user)
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

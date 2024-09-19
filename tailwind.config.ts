@@ -15,6 +15,9 @@ const config: Config = {
       },
       lineHeight: {
         '12': '84px'
+      },
+      colors: {
+        'secondary': '#1d9bf0'
       }
     }
   },

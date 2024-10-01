@@ -23,7 +23,7 @@ export default async function RootLayout ({
     <html lang="en">
       <body className={inter.className}>
         <SessionProvider session={session}>
-          <div className='lg:w-[1000px] lg:mx-auto mt-6'>
+          <div className='lg:w-[1200px] lg:mx-auto mt-6'>
             {children}
           </div>
           <Footer/>
